@@ -1,0 +1,11 @@
+[workspace]
+resolver = "2"
+members = [
+    "telemetry",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+authors = ["Natnael Tezazu <natnaeltezau32@gmail.com>"]
+license = "MIT"
