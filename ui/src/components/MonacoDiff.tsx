@@ -88,63 +88,63 @@ export const MonacoDiff: React.FC<MonacoDiffProps> = ({ step }) => {
       base: 'vs-dark',
       inherit: true,
       rules: [
-        { token: 'keyword', foreground: 'EDE6D6', fontStyle: 'bold' },
-        { token: 'string', foreground: 'E4572E' },
-        { token: 'type', foreground: 'E8A33D' },
-        { token: 'number', foreground: 'E8A33D' },
-        { token: 'delimiter', foreground: '3A3730' },
-        { token: 'comment', foreground: '4A4640', fontStyle: 'italic' },
+        { token: 'keyword', foreground: 'D8CDB7', fontStyle: 'bold' },
+        { token: 'string', foreground: 'F05A2A' },
+        { token: 'type', foreground: 'F0A83A' },
+        { token: 'number', foreground: 'F0A83A' },
+        { token: 'delimiter', foreground: '5A5040' },
+        { token: 'comment', foreground: '827869', fontStyle: 'italic' },
       ],
       colors: {
-        'editor.background': '#171512',
-        'editor.foreground': '#EDE6D6',
-        'editor.lineHighlightBackground': '#1A1814',
-        'editorLineNumber.foreground': '#3A3730',
-        'editorLineNumber.activeForeground': '#8A8578',
-        'diffEditor.insertedTextBackground': '#8AB66122',
-        'diffEditor.removedTextBackground': '#D6453322',
-        'diffEditor.insertedLineBackground': '#8AB66118',
-        'diffEditor.removedLineBackground': '#D6453318',
-        'editorGutter.background': '#171512',
-        'scrollbarSlider.background': '#2A2721',
-        'scrollbarSlider.hoverBackground': '#4A4640',
-        'scrollbarSlider.activeBackground': '#E4572E',
+        'editor.background': '#12100D',
+        'editor.foreground': '#C8BDA8',
+        'editor.lineHighlightBackground': '#1A1712',
+        'editorLineNumber.foreground': '#5A5040',
+        'editorLineNumber.activeForeground': '#B8AD99',
+        'diffEditor.insertedTextBackground': '#9AC36A28',
+        'diffEditor.removedTextBackground': '#E14A3628',
+        'diffEditor.insertedLineBackground': '#9AC36A1A',
+        'diffEditor.removedLineBackground': '#E14A361A',
+        'editorGutter.background': '#12100D',
+        'scrollbarSlider.background': '#3A3328',
+        'scrollbarSlider.hoverBackground': '#827869',
+        'scrollbarSlider.activeBackground': '#F05A2A',
       },
     });
   };
 
   return (
-    <div className="bg-[#171512] border border-[#2A2721] shadow-[4px_4px_0_#000] h-full flex flex-col overflow-hidden select-none">
+    <div className="bg-[#16130F] border border-[#3A3328] shadow-[4px_4px_0_#000] h-full flex flex-col overflow-hidden select-none">
       {/* Tab Bar */}
-      <div className="bg-[#0A0906] border-b border-[#2A2721] flex items-end px-2 pt-1.5 shrink-0">
-        <div className="bg-[#171512] border-t border-l border-r border-[#2A2721] border-b border-b-[#171512] px-3 py-1 font-mono text-[9px] text-[#EDE6D6] flex items-center gap-2">
-          <span className="text-[#E4572E] text-[8px]">◈</span>
+      <div className="bg-[#0A0906] border-b border-[#3A3328] flex items-end px-3 pt-2 shrink-0">
+        <div className="bg-[#16130F] border-t border-l border-r border-[#3A3328] border-b border-b-[#16130F] px-4 py-1.5 font-mono text-[14px] text-[#D8CDB7] flex items-center gap-2.5">
+          <span className="text-[#F05A2A] text-[13px]">◈</span>
           <span>{fileTitle}</span>
         </div>
         <div className="flex-1" />
-        <div className="flex items-center gap-2 pb-1.5 pr-2 font-mono text-[9px]">
-          <span className="text-[#8AB661]">+{additions}</span>
-          <span className="text-[#D64533]">−{deletions}</span>
-          <div className="w-[1px] h-3.5 bg-[#2A2721] mx-1" />
-          <span className="text-[8px] text-[#8A8578]">
+        <div className="flex items-center gap-3 pb-2 pr-3 font-mono text-[13px]">
+          <span className="text-[#9AC36A] font-bold">+{additions}</span>
+          <span className="text-[#E14A36] font-bold">−{deletions}</span>
+          <div className="w-[1px] h-4 bg-[#3A3328] mx-0.5" />
+          <span className="text-[13px] text-[#B8AD99]">
             {fileTitle.split('/').pop()}
           </span>
         </div>
       </div>
 
       {/* Column Headers */}
-      <div className="grid grid-cols-2 bg-[#0E0D0B] border-b border-[#2A2721] shrink-0 font-mono text-[7px] text-[#8A8578] tracking-[0.12em]">
-        <div className="px-3 py-1 border-r border-[#2A2721]">
+      <div className="grid grid-cols-2 bg-[#0A0908] border-b border-[#3A3328] shrink-0 font-mono text-[12px] text-[#B8AD99] tracking-[0.1em] font-bold">
+        <div className="px-4 py-1.5 border-r border-[#3A3328]">
           ORIGINAL ← BASE
         </div>
-        <div className="px-3 py-1">
+        <div className="px-4 py-1.5">
           MODIFIED ← PATCHED
         </div>
       </div>
 
       {/* Editor Body */}
-      <div className="flex-1 w-full bg-[#171512] relative overflow-hidden">
-        {/* CRT Scanline overlay */}
+      <div className="flex-1 w-full bg-[#12100D] relative overflow-hidden">
+        {/* CRT Scanline overlay (subtle) */}
         <div className="absolute inset-0 pointer-events-none z-10 scanlines-dark" />
 
         <DiffEditor
@@ -158,8 +158,9 @@ export const MonacoDiff: React.FC<MonacoDiffProps> = ({ step }) => {
             readOnly: true,
             renderSideBySide: true,
             minimap: { enabled: false },
-            fontSize: 11,
-            fontFamily: '"Space Mono", Menlo, monospace',
+            fontSize: 14,
+            lineHeight: 22,
+            fontFamily: '"Space Mono", "JetBrains Mono", Menlo, monospace',
             scrollBeyondLastLine: false,
             automaticLayout: true,
             diffWordWrap: 'on',
@@ -173,13 +174,13 @@ export const MonacoDiff: React.FC<MonacoDiffProps> = ({ step }) => {
       </div>
 
       {/* Footer */}
-      <div className="h-7 px-3 border-t border-[#2A2721] bg-[#0A0906] flex items-center gap-3 shrink-0 font-mono text-[7px] tracking-[0.1em] text-[#8A8578]">
+      <div className="h-9 px-4 border-t border-[#3A3328] bg-[#0A0906] flex items-center gap-4 shrink-0 font-mono text-[12px] tracking-[0.08em] text-[#B8AD99] font-bold">
         <span>DIFF ENGINE: UNIFIED</span>
-        <span className="text-[#2A2721]">•</span>
-        <span className="text-[#8AB661]">POLICY CHECK: PASSED ✓</span>
+        <span className="text-[#3A3328]">•</span>
+        <span className="text-[#9AC36A]">POLICY CHECK: PASSED ✓</span>
         <div className="flex-1" />
-        <span className="text-[#4A4640]">CONTEXT: 3 LINES</span>
-        <span className="text-[#4A4640]">• ENCODING: UTF-8</span>
+        <span className="text-[#827869]">CONTEXT: 3 LINES</span>
+        <span className="text-[#827869]">• ENCODING: UTF-8</span>
       </div>
     </div>
   );
