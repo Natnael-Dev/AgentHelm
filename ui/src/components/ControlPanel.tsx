@@ -30,7 +30,7 @@ function KeycapButton({
       onMouseDown={() => !disabled && setPressed(true)}
       onMouseUp={() => setPressed(false)}
       onMouseLeave={() => setPressed(false)}
-      className="font-mono text-[9px] font-bold tracking-[0.14em] text-[#0C0B08] px-4.5 h-[42px] flex items-center gap-2 cursor-pointer select-none whitespace-nowrap rounded-[3px] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+      className="font-mono text-[15px] font-bold tracking-[0.1em] text-[#0C0B08] px-5 h-[54px] flex items-center gap-2.5 cursor-pointer select-none whitespace-nowrap rounded-[3px] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
       style={{
         backgroundColor: pressed ? `color-mix(in srgb, ${bgColor} 80%, #000)` : bgColor,
         border: `2px solid color-mix(in srgb, ${bgColor} 60%, #000)`,
@@ -44,14 +44,14 @@ function KeycapButton({
         boxShadow: pressed ? '1px 1px 0 #000' : '4px 4px 0 #000',
       }}
     >
-      <span className="text-[13px] leading-none">{icon}</span>
+      <span className="text-[16px] leading-none">{icon}</span>
       <span>{label}</span>
     </button>
   );
 
   if (hazard) {
     return (
-      <div className="p-1 rounded-[5px] border border-[rgba(214,69,51,0.3)] hazard-border">
+      <div className="p-1 rounded-[5px] border border-[rgba(225,74,54,0.35)] hazard-border">
         {btn}
       </div>
     );
@@ -73,13 +73,13 @@ function Waveform() {
   });
 
   return (
-    <div className="flex items-center gap-[1.5px] h-7 shrink-0">
+    <div className="flex items-center gap-[1.5px] h-8 shrink-0">
       {bars.map((h, i) => (
         <div
           key={i}
-          className="w-[3px] shrink-0 bg-[#E4572E]"
+          className="w-[3px] shrink-0 bg-[#F05A2A]"
           style={{
-            height: `${Math.max(2, Math.round(h * 24))}px`,
+            height: `${Math.max(2, Math.round(h * 28))}px`,
             opacity: 0.45 + 0.55 * h,
           }}
         />
@@ -117,27 +117,27 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
   };
 
   return (
-    <div className="h-[72px] bg-[#0C0B09] border-t-2 border-[#2A2721] flex items-center px-6 gap-3.5 shrink-0 select-none z-20">
+    <div className="h-[82px] bg-[#0A0908] border-t-2 border-[#3A3328] flex items-center px-6 gap-4 shrink-0 select-none z-20">
       {/* Keycap Actions */}
       <KeycapButton
         label="APPROVE & MERGE"
-        bgColor="#8AB661"
+        bgColor="#9AC36A"
         icon="✓"
         disabled={!selectedStep}
         onClick={handleApproveMerge}
       />
-      <div className="w-[1px] h-11 bg-[#2A2721]" />
+      <div className="w-[1px] h-12 bg-[#3A3328]" />
       <KeycapButton
         label="STEP UNDO"
-        bgColor="#E8A33D"
+        bgColor="#F0A83A"
         icon="↩"
         disabled={!selectedStep}
         onClick={handleStepUndo}
       />
-      <div className="w-[1px] h-11 bg-[#2A2721]" />
+      <div className="w-[1px] h-12 bg-[#3A3328]" />
       <KeycapButton
         label="KILL PROCESS"
-        bgColor="#D64533"
+        bgColor="#E14A36"
         icon="■"
         hazard
         onClick={handlePanicKill}
@@ -145,7 +145,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
 
       {/* Toast Feedback */}
       {toast && (
-        <div className="font-mono text-[9px] text-[#E4572E] border border-[#E4572E]/40 px-3 py-1 bg-[#171512] shadow-[2px_2px_0_#000] ml-2 animate-bounce">
+        <div className="font-mono text-[13px] text-[#F05A2A] border border-[#F05A2A]/40 px-3 py-1.5 bg-[#16130F] shadow-[2px_2px_0_#000] ml-2 font-bold">
           {toast}
         </div>
       )}
@@ -155,19 +155,19 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
       {/* Waveform audio/event stream indicator */}
       <Waveform />
 
-      <div className="w-[1px] h-11 bg-[#2A2721] ml-1.5" />
+      <div className="w-[1px] h-12 bg-[#3A3328] ml-2" />
 
       {/* Auxiliary switches */}
-      <div className="flex gap-1.5">
+      <div className="flex gap-2">
         <button
           onClick={() => showToast('AUTO-SCROLL: ENGAGED')}
-          className="bg-transparent border border-[#2A2721] hover:border-[#4A4640] text-[#8A8578] hover:text-[#EDE6D6] font-mono text-[7px] tracking-[0.14em] px-3 py-1 rounded-full cursor-pointer transition-colors"
+          className="bg-transparent border border-[#3A3328] hover:border-[#827869] text-[#B8AD99] hover:text-[#D8CDB7] font-mono text-[12px] font-bold tracking-[0.1em] px-3.5 py-1.5 rounded-full cursor-pointer transition-colors"
         >
           SCROLL
         </button>
         <button
           onClick={() => showToast('FEED PAUSED')}
-          className="bg-transparent border border-[#2A2721] hover:border-[#4A4640] text-[#8A8578] hover:text-[#EDE6D6] font-mono text-[7px] tracking-[0.14em] px-3 py-1 rounded-full cursor-pointer transition-colors"
+          className="bg-transparent border border-[#3A3328] hover:border-[#827869] text-[#B8AD99] hover:text-[#D8CDB7] font-mono text-[12px] font-bold tracking-[0.1em] px-3.5 py-1.5 rounded-full cursor-pointer transition-colors"
         >
           STOP
         </button>
