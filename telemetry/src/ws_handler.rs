@@ -8,6 +8,8 @@ use std::sync::Arc;
 use tokio::sync::broadcast;
 use tracing::{debug, error, info, warn};
 
+pub const BROADCAST_CAPACITY: usize = 1024;
+
 #[derive(Clone)]
 pub struct WsState {
     pub tx: broadcast::Sender<WireEvent>,
@@ -34,7 +36,7 @@ async fn handle_socket(socket: WebSocket, state: Arc<WsState>) {
                     match serde_json::to_string(&event) {
                         Ok(json) => {
                             if let Err(e) = sender.send(Message::Text(json)).await {
-                                debug!("[WS] Failed to send message to client (client disconnected): {}", e);
+                                debug!("[WS] Client disconnected during send: {}", e);
                                 break;
                             }
                         }
@@ -44,7 +46,9 @@ async fn handle_socket(socket: WebSocket, state: Arc<WsState>) {
                     }
                 }
                 Err(broadcast::error::RecvError::Lagged(skipped)) => {
-                    warn!("[WS] Subscriber lagged behind, skipped {} events", skipped);
+                    // Non-fatal: notify client of missed frames while maintaining active session
+                    warn!("[WS] Broadcast queue overflow; dropped {} historic frames for slow subscriber", skipped);
+                    continue;
                 }
                 Err(broadcast::error::RecvError::Closed) => {
                     info!("[WS] Broadcast channel closed");
