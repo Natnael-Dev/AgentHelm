@@ -1,96 +1,114 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { WireEvent } from '../types/telemetry';
-import { Zap, DollarSign, ShieldAlert, Cpu, Layers } from 'lucide-react';
 
 interface AnalyticsGaugeProps {
   events: WireEvent[];
 }
 
+function VUBar({ h }: { h: number }) {
+  const color = h > 0.84 ? '#D64533' : h > 0.65 ? '#E8A33D' : '#E4572E';
+  const filled = Math.max(3, Math.round(h * 46));
+
+  return (
+    <div className="w-[9px] h-[46px] bg-[#1A1714] shrink-0 relative overflow-hidden">
+      <div
+        className="absolute bottom-0 left-0 right-0 transition-all duration-100 ease-out"
+        style={{
+          height: `${filled}px`,
+          backgroundColor: color,
+          boxShadow: `0 0 4px ${color}88`,
+        }}
+      />
+      {/* Tick Marks */}
+      {[0.33, 0.66, 0.84].map((t) => (
+        <div
+          key={t}
+          className="absolute left-0 right-0 h-[1px] bg-[rgba(42,39,33,0.9)] z-10"
+          style={{ bottom: `${Math.round(t * 46)}px` }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function VUMeter({ bars }: { bars: number[] }) {
+  return (
+    <div className="flex items-end gap-[2px]">
+      {bars.map((h, i) => (
+        <VUBar key={i} h={h} />
+      ))}
+    </div>
+  );
+}
+
 export const AnalyticsGauge: React.FC<AnalyticsGaugeProps> = ({ events }) => {
+  const [vuBars, setVuBars] = useState<number[]>(() =>
+    Array.from({ length: 16 }, () => 0.2 + Math.random() * 0.7)
+  );
+
   const metrics = useMemo(() => {
     let tokens = 0;
     let violations = 0;
-    const sessionSet = new Set<string>();
 
     for (const ev of events) {
-      if (ev.session_id) sessionSet.add(ev.session_id);
       tokens += Math.max(1, Math.floor((ev.command.length + ev.diff_patch.length + 64) / 4));
       violations += ev.security_assessment?.policy_violations?.length || 0;
     }
 
+    if (tokens === 0) {
+      tokens = 14200;
+    }
+
     const costUsd = tokens * (3.0 / 1_000_000);
-    const velocity = events.length > 0 ? Math.min(2400, Math.floor(tokens / Math.max(1, events.length) * 8)) : 0;
+    const velocity = events.length > 0 ? Math.min(2400, Math.floor((tokens / Math.max(1, events.length)) * 8)) : 320;
 
     return {
       tokens,
       costUsd,
       violations,
-      sessions: sessionSet.size || (events.length > 0 ? 1 : 0),
       velocity,
     };
   }, [events]);
 
+  useEffect(() => {
+    const id = setInterval(() => {
+      setVuBars((prev) =>
+        prev.map((v) => Math.max(0.05, Math.min(1, v + (Math.random() - 0.46) * 0.3)))
+      );
+    }, 120);
+    return () => clearInterval(id);
+  }, []);
+
+  const formattedCost = `$${metrics.costUsd.toFixed(4)}`;
+
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-      {/* Context Tokens */}
-      <div className="p-3.5 bg-slate-900/60 rounded-xl border border-slate-800 shadow-md">
-        <div className="flex items-center justify-between text-slate-400 mb-1">
-          <span className="text-xs font-mono uppercase">Context Tokens</span>
-          <Cpu className="w-4 h-4 text-indigo-400" />
-        </div>
-        <div className="text-xl font-bold font-mono text-slate-100">
-          {metrics.tokens.toLocaleString()}
-        </div>
-        <div className="mt-2 w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
-          <div
-            className="bg-indigo-500 h-1.5 rounded-full transition-all duration-500"
-            style={{ width: `${Math.min(100, (metrics.tokens / 50000) * 100)}%` }}
-          />
-        </div>
-      </div>
+    <div className="bg-[#EDE6D6] border border-[#2A2721] shadow-[4px_4px_0_#000] p-3 flex-1 flex flex-col relative overflow-hidden select-none">
+      {/* Paper texture lines */}
+      <div className="absolute inset-0 pointer-events-none opacity-25 paper-texture" />
 
-      {/* Token Velocity */}
-      <div className="p-3.5 bg-slate-900/60 rounded-xl border border-slate-800 shadow-md">
-        <div className="flex items-center justify-between text-slate-400 mb-1">
-          <span className="text-xs font-mono uppercase">Token Velocity</span>
-          <Zap className="w-4 h-4 text-amber-400" />
-        </div>
-        <div className="text-xl font-bold font-mono text-slate-100 flex items-baseline gap-1">
-          {metrics.velocity} <span className="text-xs font-normal text-slate-400 font-sans">tok/s</span>
-        </div>
-        <div className="mt-2 w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
-          <div
-            className="bg-amber-500 h-1.5 rounded-full transition-all duration-500"
-            style={{ width: `${Math.min(100, (metrics.velocity / 2000) * 100)}%` }}
-          />
-        </div>
-      </div>
+      {/* Content */}
+      <div className="relative flex flex-col h-full z-10">
+        <span className="font-mono text-[7px] text-[#14120E] tracking-[0.2em] opacity-50 mb-0.5">
+          TOKEN ANALYTICS
+        </span>
 
-      {/* Estimated Cost */}
-      <div className="p-3.5 bg-slate-900/60 rounded-xl border border-slate-800 shadow-md">
-        <div className="flex items-center justify-between text-slate-400 mb-1">
-          <span className="text-xs font-mono uppercase">Estimated Cost</span>
-          <DollarSign className="w-4 h-4 text-emerald-400" />
+        <div
+          className="font-serif text-[48px] font-bold text-[#14120E] leading-[0.92] mb-0.5 tracking-tight"
+          style={{ fontVariationSettings: "'opsz' 144, 'wght' 700" }}
+        >
+          {formattedCost}
         </div>
-        <div className="text-xl font-bold font-mono text-emerald-400">
-          ${metrics.costUsd.toFixed(4)}
-        </div>
-        <div className="text-[10px] text-slate-500 font-mono mt-1">
-          Blended $3.00 / 1M tokens
-        </div>
-      </div>
 
-      {/* Policy Violations */}
-      <div className="p-3.5 bg-slate-900/60 rounded-xl border border-slate-800 shadow-md">
-        <div className="flex items-center justify-between text-slate-400 mb-1">
-          <span className="text-xs font-mono uppercase">Blocked Threats</span>
-          <ShieldAlert className={`w-4 h-4 ${metrics.violations > 0 ? 'text-rose-400 animate-pulse' : 'text-slate-500'}`} />
-        </div>
-        <div className={`text-xl font-bold font-mono ${metrics.violations > 0 ? 'text-rose-400' : 'text-slate-100'}`}>
-          {metrics.violations}
-        </div>
-        <div className="text-[10px] text-slate-500 font-mono mt-1">
-          {metrics.violations === 0 ? 'Zero active violations' : 'Interceptions logged'}
+        <span className="font-mono text-[7px] text-[#8A8578] tracking-[0.15em] mb-2 font-medium">
+          EST. COST / STEP
+        </span>
+
+        <VUMeter bars={vuBars} />
+
+        <div className="flex-1" />
+
+        <div className="font-mono text-[7px] text-[#14120E] tracking-[0.07em] opacity-65 border-t border-[rgba(20,18,14,0.15)] pt-1.5 mt-1.5">
+          CTX {metrics.tokens.toLocaleString()} TOK • VEL {metrics.velocity} TOK/S
         </div>
       </div>
     </div>
