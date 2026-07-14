@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  # ─── GO BAR DAEMON & SANDBOX RUNNER ──────────────────────────────────────────
+  daemon:
+    build:
+      context: .
+      dockerfile: core/daemon/Dockerfile
+    container_name: agentguard-daemon
+    restart: unless-stopped
+    volumes:
+      - uds-socket:/tmp
+      - ./workspace:/workspace
+    environment:
+      - AGENTGUARD_ENV=development
+      - AGENTGUARD_SOCK=/tmp/agentguard.sock
+      - AGENTGUARD_WORKSPACE=/workspace
+    command: ["--session", "sess_docker_01", "--sock", "/tmp/agentguard.sock"]
+    networks:
+      - agentguard-net
+
+  # ─── RUST TELEMETRY & DISPATCH ENGINE ───────────────────────────────────────
+  telemetry:
+    build:
+      context: .
+      dockerfile: telemetry/Dockerfile
+    container_name: agentguard-telemetry
+    restart: unless-stopped
+    ports:
+      - "8765:8765"
+    volumes:
+      - uds-socket:/tmp
+    environment:
+      - RUST_LOG=info
+      - AGENTGUARD_SOCK=/tmp/agentguard.sock
+      - WS_BIND_ADDR=0.0.0.0:8765
+    depends_on:
+      - daemon
+    networks:
+      - agentguard-net
+
+  # ─── NODE.JS EXEORA MCP TUNNEL ──────────────────────────────────────────────
+  mcp-tunnel:
+    build:
+      context: .
+      dockerfile: extensions/mcp-tunnel/Dockerfile
+    container_name: agentguard-mcp-tunnel
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./workspace:/workspace
+    environment:
+      - PORT=9000
+      - HOST=0.0.0.0
+      - AGENTGUARD_MCP_SECRET=agentguard_master_secret_key_32b
+    networks:
+      - agentguard-net
+
+volumes:
+  uds-socket:
+    driver: local
+
+networks:
+  agentguard-net:
+    driver: bridge
