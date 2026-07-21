@@ -1,18 +1,43 @@
 import React, { useMemo } from 'react';
 import { DiffEditor } from '@monaco-editor/react';
 import { WireEvent } from '../types/telemetry';
-import { GitCompare, FileCode, ShieldCheck, ShieldAlert } from 'lucide-react';
+import { GitCompare, ShieldCheck, ShieldAlert } from 'lucide-react';
 
 interface MonacoDiffProps {
   step: WireEvent | null;
 }
 
-// Utility to parse unified diff patch into Original and Modified buffer text
+function detectLanguage(filePath?: string): string {
+  if (!filePath) return 'typescript';
+  const ext = filePath.split('.').pop()?.toLowerCase();
+  switch (ext) {
+    case 'rs':
+      return 'rust';
+    case 'go':
+      return 'go';
+    case 'py':
+      return 'python';
+    case 'json':
+      return 'json';
+    case 'md':
+      return 'markdown';
+    case 'sh':
+    case 'bash':
+      return 'shell';
+    case 'css':
+      return 'css';
+    case 'html':
+      return 'html';
+    default:
+      return 'typescript';
+  }
+}
+
 function parseDiffBuffers(diffPatch: string) {
   if (!diffPatch || !diffPatch.trim()) {
     return {
-      original: '// No code modifications in this step',
-      modified: '// No code modifications in this step',
+      original: '// No code modifications in this step\n// Run an agent task to view live changes',
+      modified: '// No code modifications in this step\n// Run an agent task to view live changes',
     };
   }
 
@@ -32,15 +57,14 @@ function parseDiffBuffers(diffPatch: string) {
       originalLines.push(`// --- ${line} ---`);
       modifiedLines.push(`// --- ${line} ---`);
     } else {
-      // Context line
       originalLines.push(line.startsWith(' ') ? line.slice(1) : line);
       modifiedLines.push(line.startsWith(' ') ? line.slice(1) : line);
     }
   }
 
   return {
-    original: originalLines.join('\n') || '// No deleted lines',
-    modified: modifiedLines.join('\n') || '// No added lines',
+    original: originalLines.join('\n') || '// (Clean baseline)',
+    modified: modifiedLines.join('\n') || '// (Clean state)',
   };
 }
 
@@ -50,6 +74,7 @@ export const MonacoDiff: React.FC<MonacoDiffProps> = ({ step }) => {
   }, [step?.diff_patch]);
 
   const fileTitle = step?.affected_files?.[0] || 'sandbox-changes.diff';
+  const language = detectLanguage(fileTitle);
   const isCritical = step?.security_assessment?.risk_level === 'CRITICAL';
 
   return (
@@ -86,7 +111,7 @@ export const MonacoDiff: React.FC<MonacoDiffProps> = ({ step }) => {
       <div className="flex-1 w-full bg-[#1e1e1e]">
         <DiffEditor
           height="100%"
-          language="typescript"
+          language={language}
           theme="vs-dark"
           original={original}
           modified={modified}
