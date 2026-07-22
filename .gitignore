@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Production build
+dist/
+build/
+bin/
+
+# Environment and logs
+*.log
+.env
+.env.local
+
+# Rust & Cargo
+target/
+Cargo.lock
+
+# OS Files
+.DS_Store
+Thumbs.db
