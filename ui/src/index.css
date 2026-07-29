@@ -53,6 +53,49 @@ body,
   font-family: 'Archivo', sans-serif;
 }
 
+/* CRT scanlines */
+.scanlines-amber {
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 3px,
+    rgba(228, 87, 46, 0.035) 3px,
+    rgba(228, 87, 46, 0.035) 4px
+  );
+}
+
+.scanlines-dark {
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 0, 0, 0.07) 2px,
+    rgba(0, 0, 0, 0.07) 4px
+  );
+}
+
+/* Paper rule texture */
+.paper-texture {
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(20, 18, 14, 0.08) 0px,
+    rgba(20, 18, 14, 0.08) 1px,
+    transparent 1px,
+    transparent 16px
+  );
+}
+
+/* Hazard diagonal stripes */
+.hazard-border {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(214, 69, 51, 0.85) 0,
+    rgba(214, 69, 51, 0.85) 4px,
+    #0A0906 4px,
+    #0A0906 9px
+  );
+}
+
 /* Custom crisp scrollbars matching Figma spec */
 ::-webkit-scrollbar {
   width: 3px;
