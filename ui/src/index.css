@@ -1,39 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  body {
-    @apply bg-[#090d16] text-slate-100 antialiased font-sans;
-    background-image: 
-      radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.07) 0px, transparent 40%),
-      radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.07) 0px, transparent 40%),
-      radial-gradient(at 50% 50%, rgba(15, 23, 42, 0.4) 0px, transparent 100%);
-  }
+:root {
+  --ag-void: #0E0D0B;
+  --ag-charcoal: #171512;
+  --ag-border: #2A2721;
+  --ag-cream: #EDE6D6;
+  --ag-ink: #14120E;
+  --ag-orange: #E4572E;
+  --ag-green: #8AB661;
+  --ag-amber: #E8A33D;
+  --ag-red: #D64533;
+  --ag-bone: #8A8578;
 }
 
-.custom-scrollbar::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #070605;
+  color: #EDE6D6;
+  font-family: 'Archivo', sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.4);
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.08; }
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(51, 65, 85, 0.6);
-  border-radius: 9999px;
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 4px currentColor; }
+  50% { box-shadow: 0 0 10px currentColor, 0 0 20px currentColor; }
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(100, 116, 139, 0.9);
+.font-serif {
+  font-family: 'Fraunces', serif;
 }
 
-.glow-emerald {
-  box-shadow: 0 0 20px -5px rgba(16, 185, 129, 0.25);
+.font-mono {
+  font-family: 'Space Mono', monospace;
 }
 
-.glow-rose {
-  box-shadow: 0 0 20px -5px rgba(244, 63, 94, 0.35);
+.font-sans {
+  font-family: 'Archivo', sans-serif;
+}
+
+/* Custom crisp scrollbars matching Figma spec */
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2A2721;
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4A4640;
 }
