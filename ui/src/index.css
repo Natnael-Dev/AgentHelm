@@ -6,17 +6,26 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── DARKENED & BALANCED PALETTE ───────────────────────────────────────────── */
+
 :root {
-  --ag-void: #0E0D0B;
-  --ag-charcoal: #171512;
-  --ag-border: #2A2721;
-  --ag-cream: #EDE6D6;
-  --ag-ink: #14120E;
-  --ag-orange: #E4572E;
-  --ag-green: #8AB661;
-  --ag-amber: #E8A33D;
-  --ag-red: #D64533;
-  --ag-bone: #8A8578;
+  --ag-void: #080705;
+  --ag-charcoal: #12100D;
+  --ag-panel: #16130F;
+  --ag-panel-raised: #1B1712;
+  --ag-border: #3A3328;
+
+  --ag-cream: #D8CDB7;
+  --ag-cream-soft: #C8BDA8;
+  --ag-ink: #11100C;
+
+  --ag-orange: #F05A2A;
+  --ag-green: #9AC36A;
+  --ag-amber: #F0A83A;
+  --ag-red: #E14A36;
+
+  --ag-bone: #B8AD99;
+  --ag-muted: #827869;
 }
 
 html,
@@ -25,11 +34,16 @@ body,
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: #070605;
-  color: #EDE6D6;
+  background-color: var(--ag-void);
+  color: var(--ag-bone);
   font-family: 'Archivo', sans-serif;
+  font-size: 15px;
+  line-height: 1.45;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+/* ─── ANIMATION KEYFRAMES ───────────────────────────────────────────────────── */
 
 @keyframes blink {
   0%, 100% { opacity: 1; }
@@ -40,6 +54,8 @@ body,
   0%, 100% { box-shadow: 0 0 4px currentColor; }
   50% { box-shadow: 0 0 10px currentColor, 0 0 20px currentColor; }
 }
+
+/* ─── FONT FAMILIES ─────────────────────────────────────────────────────────── */
 
 .font-serif {
   font-family: 'Fraunces', serif;
@@ -53,14 +69,49 @@ body,
   font-family: 'Archivo', sans-serif;
 }
 
-/* CRT scanlines */
+/* ─── REUSABLE TYPOGRAPHY UTILITIES ─────────────────────────────────────────── */
+
+.ag-panel-title {
+  font-family: "Space Mono", monospace;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ag-orange);
+}
+
+.ag-label {
+  font-family: "Space Mono", monospace;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ag-bone);
+}
+
+.ag-data {
+  font-family: "Space Mono", monospace;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--ag-cream-soft);
+}
+
+.ag-body {
+  font-family: "Archivo", sans-serif;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--ag-bone);
+}
+
+/* ─── CRT SCANLINES (reduced for readability) ───────────────────────────────── */
+
 .scanlines-amber {
   background-image: repeating-linear-gradient(
     0deg,
     transparent 0px,
     transparent 3px,
-    rgba(228, 87, 46, 0.035) 3px,
-    rgba(228, 87, 46, 0.035) 4px
+    rgba(240, 90, 42, 0.025) 3px,
+    rgba(240, 90, 42, 0.025) 4px
   );
 }
 
@@ -69,37 +120,40 @@ body,
     0deg,
     transparent 0px,
     transparent 2px,
-    rgba(0, 0, 0, 0.07) 2px,
-    rgba(0, 0, 0, 0.07) 4px
+    rgba(0, 0, 0, 0.04) 2px,
+    rgba(0, 0, 0, 0.04) 4px
   );
 }
 
-/* Paper rule texture */
+/* ─── PAPER RULE TEXTURE ────────────────────────────────────────────────────── */
+
 .paper-texture {
   background-image: repeating-linear-gradient(
     0deg,
-    rgba(20, 18, 14, 0.08) 0px,
-    rgba(20, 18, 14, 0.08) 1px,
+    rgba(17, 16, 12, 0.06) 0px,
+    rgba(17, 16, 12, 0.06) 1px,
     transparent 1px,
     transparent 16px
   );
 }
 
-/* Hazard diagonal stripes */
+/* ─── HAZARD DIAGONAL STRIPES ───────────────────────────────────────────────── */
+
 .hazard-border {
   background-image: repeating-linear-gradient(
     -45deg,
-    rgba(214, 69, 51, 0.85) 0,
-    rgba(214, 69, 51, 0.85) 4px,
+    rgba(225, 74, 54, 0.85) 0,
+    rgba(225, 74, 54, 0.85) 4px,
     #0A0906 4px,
     #0A0906 9px
   );
 }
 
-/* Custom crisp scrollbars matching Figma spec */
+/* ─── SCROLLBARS ────────────────────────────────────────────────────────────── */
+
 ::-webkit-scrollbar {
-  width: 3px;
-  height: 3px;
+  width: 4px;
+  height: 4px;
 }
 
 ::-webkit-scrollbar-track {
@@ -107,10 +161,10 @@ body,
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2A2721;
+  background: var(--ag-border);
   border-radius: 0;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #4A4640;
+  background: var(--ag-muted);
 }
