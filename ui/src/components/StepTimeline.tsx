@@ -1,5 +1,5 @@
 import React from 'react';
-import { WireEvent, RiskLevel } from '../types/telemetry';
+import { WireEvent } from '../types/telemetry';
 
 interface StepTimelineProps {
   events: WireEvent[];

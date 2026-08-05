@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTelemetryWs } from './hooks/useTelemetryWs';
 import { MOCK_TELEMETRY_EVENTS } from './mock/mockEvents';
 import { Header } from './components/Header';
