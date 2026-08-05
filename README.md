@@ -40,7 +40,7 @@ When AI agents write code on your machine, they run terminal commands, install p
 **AgentGuard Live fixes this completely:**
 - 🛡️ **Zero Risk**: All code runs in a sandboxed Git worktree (`sandbox-042`). Your main branch is untouched until you hit **[ APPROVE & MERGE ]**.
 - 🚫 **Active Defense**: Blocks dangerous shell commands instantly before they execute.
-- 👁️ **Live Code Diffs**: Side-by-side Monaco diff viewer showing exactly what the AI changed.
+- 👁️ **Live Code Diffs**: Side-by-Side Monaco diff viewer showing exactly what the AI changed.
 - 💰 **Live Cost Tracking**: Real-time dollar estimate based on token velocity and context size.
 - 🕹️ **Mechanical Control Deck**: Big tactile buttons to approve, rollback, or kill the agent process instantly.
 
@@ -103,33 +103,91 @@ The bottom deck features heavy 3D physical keycap buttons with mechanical press 
 ## 🚀 1-Minute Quick Start
 
 ### Prerequisites
-- [Docker & Docker Compose](https://www.docker.com/)
+- [Docker & Docker Compose](https://www.docker.com/) (Optional for full container stack)
 - [Node.js 18+](https://nodejs.org/)
 
-### Start the Dashboard
+### Start the Dashboard & Tunnel
 ```bash
 # 1. Clone the repository
 git clone https://github.com/agentguard/agentguard-live.git
 cd agentguard-live
 
-# 2. Launch full stack (Docker backend + local UI)
-make dev
+# 2. Start the MCP Tunnel in Terminal 1
+node extensions/mcp-tunnel/start.js --port 9000
+
+# 3. Start the UI in Terminal 2
+cd ui && npm run dev
 ```
 
 Open your browser to:
-👉 **`http://localhost:5173/`**
+👉 **`http://localhost:5173/`** (or `http://localhost:5174/` if 5173 is occupied)
 
 ---
 
-## 🔌 Connecting External Agents (Claude Code / Cursor)
+## 🛠️ Step-by-Step Configuration Guide (IDE Setup)
 
-AgentGuard Live includes the **Exeora MCP Tunnel** (`extensions/mcp-tunnel`), which creates an encrypted loopback bridge for your favorite AI coding tools.
+AgentGuard Live communicates with AI coding assistants (Antigravity, Cursor, Claude Desktop, VS Code/Cline) via the **Model Context Protocol (MCP)**. Follow the steps below for your tool:
 
-### Add to Cursor (`~/.cursor/mcp.json`) or Claude Desktop:
+### 1. Antigravity IDE Setup
+Add the `agentguard` server entry to your global config file at `C:\Users\<User>\.gemini\config\mcp_config.json` (or `.agents/mcp_config.json` in your workspace):
+
 ```json
 {
   "mcpServers": {
-    "agentguard-sandbox": {
+    "agentguard": {
+      "command": "node",
+      "args": [
+        "c:/path/to/agentguard-live/extensions/mcp-tunnel/start.js",
+        "--port",
+        "9000",
+        "--host",
+        "127.0.0.1"
+      ],
+      "env": {
+        "AGENTGUARD_MCP_SECRET": "agentguard_master_secret_key_32b"
+      }
+    }
+  }
+}
+```
+
+---
+
+### 2. Cursor IDE Setup
+1. Open Cursor Settings (`Ctrl + Shift + J` or `Cmd + Shift + J`).
+2. Navigate to **Features ➔ MCP Servers ➔ Add New MCP Server**.
+3. Fill in:
+   - **Name**: `agentguard`
+   - **Type**: `command`
+   - **Command**: `node "c:/path/to/agentguard-live/extensions/mcp-tunnel/start.js" --port 9000`
+4. Or directly edit `~/.cursor/mcp.json`:
+```json
+{
+  "mcpServers": {
+    "agentguard": {
+      "command": "node",
+      "args": [
+        "c:/path/to/agentguard-live/extensions/mcp-tunnel/start.js",
+        "--port",
+        "9000"
+      ]
+    }
+  }
+}
+```
+
+---
+
+### 3. Claude Desktop Setup
+Open your Claude Desktop configuration file:
+- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+- **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+
+Add the following under `"mcpServers"`:
+```json
+{
+  "mcpServers": {
+    "agentguard": {
       "command": "node",
       "args": [
         "/absolute/path/to/agentguard-live/extensions/mcp-tunnel/start.js",
@@ -146,7 +204,17 @@ AgentGuard Live includes the **Exeora MCP Tunnel** (`extensions/mcp-tunnel`), wh
 }
 ```
 
-Now, when Claude Code or Cursor runs, it automatically works inside the AgentGuard sandbox!
+---
+
+### 4. How to Test the Connection
+
+Once configured, test the tools by prompting your AI assistant:
+
+| Action | Example Prompt to AI | What AgentGuard Does |
+|---|---|---|
+| **Read file in sandbox** | *"Use AgentGuard to read `src/auth/jwt.ts`."* | Reads the file safely from `sandbox-042` with path-traversal prevention. |
+| **List sandbox tree** | *"List the workspace files using AgentGuard."* | Returns the directory structure of the isolated worktree. |
+| **Inspect ledger** | *"Inspect the security ledger state."* | Returns active rules (`14 RULES ARMED`), mode, and session ID. |
 
 ---
 
