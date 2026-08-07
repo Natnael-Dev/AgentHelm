@@ -6,11 +6,11 @@ interface AnalyticsGaugeProps {
 }
 
 function VUBar({ h }: { h: number }) {
-  const color = h > 0.84 ? '#D64533' : h > 0.65 ? '#E8A33D' : '#E4572E';
-  const filled = Math.max(3, Math.round(h * 46));
+  const color = h > 0.84 ? '#E14A36' : h > 0.65 ? '#F0A83A' : '#F05A2A';
+  const filled = Math.max(3, Math.round(h * 54));
 
   return (
-    <div className="w-[9px] h-[46px] bg-[#1A1714] shrink-0 relative overflow-hidden">
+    <div className="w-[10px] h-[54px] bg-[#1A1714] shrink-0 relative overflow-hidden">
       <div
         className="absolute bottom-0 left-0 right-0 transition-all duration-100 ease-out"
         style={{
@@ -23,8 +23,8 @@ function VUBar({ h }: { h: number }) {
       {[0.33, 0.66, 0.84].map((t) => (
         <div
           key={t}
-          className="absolute left-0 right-0 h-[1px] bg-[rgba(42,39,33,0.9)] z-10"
-          style={{ bottom: `${Math.round(t * 46)}px` }}
+          className="absolute left-0 right-0 h-[1px] bg-[rgba(58,51,40,0.9)] z-10"
+          style={{ bottom: `${Math.round(t * 54)}px` }}
         />
       ))}
     </div>
@@ -82,24 +82,24 @@ export const AnalyticsGauge: React.FC<AnalyticsGaugeProps> = ({ events }) => {
   const formattedCost = `$${metrics.costUsd.toFixed(4)}`;
 
   return (
-    <div className="bg-[#EDE6D6] border border-[#2A2721] shadow-[4px_4px_0_#000] p-3 flex-1 flex flex-col relative overflow-hidden select-none">
+    <div className="bg-[#C8BDA8] border border-[#3A3328] shadow-[4px_4px_0_#000] p-4 flex-1 flex flex-col relative overflow-hidden select-none">
       {/* Paper texture lines */}
-      <div className="absolute inset-0 pointer-events-none opacity-25 paper-texture" />
+      <div className="absolute inset-0 pointer-events-none opacity-20 paper-texture" />
 
       {/* Content */}
       <div className="relative flex flex-col h-full z-10">
-        <span className="font-mono text-[7px] text-[#14120E] tracking-[0.2em] opacity-50 mb-0.5">
+        <span className="font-mono text-[13px] text-[#11100C] tracking-[0.15em] opacity-60 mb-1 font-bold">
           TOKEN ANALYTICS
         </span>
 
         <div
-          className="font-serif text-[48px] font-bold text-[#14120E] leading-[0.92] mb-0.5 tracking-tight"
-          style={{ fontVariationSettings: "'opsz' 144, 'wght' 700" }}
+          className="font-serif text-[62px] font-bold text-[#11100C] leading-[0.92] mb-1 tracking-tight"
+          style={{ fontVariationSettings: "'opsz' 144, 'wght' 800" }}
         >
           {formattedCost}
         </div>
 
-        <span className="font-mono text-[7px] text-[#8A8578] tracking-[0.15em] mb-2 font-medium">
+        <span className="font-mono text-[13px] text-[#827869] tracking-[0.12em] mb-3 font-bold">
           EST. COST / STEP
         </span>
 
@@ -107,7 +107,7 @@ export const AnalyticsGauge: React.FC<AnalyticsGaugeProps> = ({ events }) => {
 
         <div className="flex-1" />
 
-        <div className="font-mono text-[7px] text-[#14120E] tracking-[0.07em] opacity-65 border-t border-[rgba(20,18,14,0.15)] pt-1.5 mt-1.5">
+        <div className="font-mono text-[14px] text-[#11100C] tracking-[0.05em] opacity-75 border-t border-[rgba(17,16,12,0.18)] pt-2 mt-2 font-bold">
           CTX {metrics.tokens.toLocaleString()} TOK • VEL {metrics.velocity} TOK/S
         </div>
       </div>
