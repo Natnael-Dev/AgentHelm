@@ -12,6 +12,7 @@ pub struct AnalyticsSnapshot {
     pub estimated_cost_usd: f64,
     pub policy_violations_count: u64,
     pub active_sessions_count: usize,
+    pub active_sessions: Vec<String>,
     pub last_updated_rfc3339: String,
 }
 
@@ -71,7 +72,13 @@ impl AnalyticsTracker {
             estimated_cost_usd: s.estimated_cost_usd,
             policy_violations_count: s.policy_violations_count,
             active_sessions_count: s.sessions.len(),
+            active_sessions: s.sessions.iter().cloned().collect(),
             last_updated_rfc3339: chrono::Utc::now().to_rfc3339(),
         }
+    }
+
+    pub async fn reset(&self) {
+        let mut s = self.state.write().await;
+        *s = State::default();
     }
 }
