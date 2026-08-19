@@ -1,6 +1,5 @@
 import React from 'react';
 import { WireEvent, RiskLevel } from '../types/telemetry';
-import { Terminal, ShieldAlert, CheckCircle2, AlertTriangle, XCircle, Clock, FileCode } from 'lucide-react';
 
 interface StepTimelineProps {
   events: WireEvent[];
@@ -8,118 +7,147 @@ interface StepTimelineProps {
   onSelectStep: (stepId: string) => void;
 }
 
+function RiskPill({ level }: { level: string }) {
+  const norm = level.toUpperCase();
+  const style =
+    norm === 'CRITICAL' || norm === 'HIGH'
+      ? { bg: 'rgba(214,69,51,0.15)', fg: '#D64533', br: 'rgba(214,69,51,0.42)' }
+      : norm === 'MEDIUM' || norm === 'MED'
+      ? { bg: 'rgba(232,163,61,0.13)', fg: '#E8A33D', br: 'rgba(232,163,61,0.38)' }
+      : { bg: 'rgba(138,182,97,0.13)', fg: '#8AB661', br: 'rgba(138,182,97,0.38)' };
+
+  const label = norm === 'CRITICAL' ? 'CRIT' : norm === 'MEDIUM' ? 'MED' : norm === 'HIGH' ? 'HIGH' : 'LOW';
+
+  return (
+    <span
+      className="font-mono text-[7px] px-1.5 py-0.5 tracking-[0.14em] rounded-[2px]"
+      style={{
+        backgroundColor: style.bg,
+        color: style.fg,
+        border: `1px solid ${style.br}`,
+      }}
+    >
+      {label}
+    </span>
+  );
+}
+
 export const StepTimeline: React.FC<StepTimelineProps> = ({
   events,
   selectedStepId,
   onSelectStep,
 }) => {
-  const getRiskBadge = (risk: RiskLevel) => {
-    switch (risk) {
-      case 'CRITICAL':
-        return 'bg-rose-950/80 text-rose-300 border-rose-800 animate-pulse';
-      case 'HIGH':
-        return 'bg-amber-950/80 text-amber-300 border-amber-800';
-      case 'MEDIUM':
-        return 'bg-yellow-950/80 text-yellow-300 border-yellow-800';
-      default:
-        return 'bg-emerald-950/80 text-emerald-300 border-emerald-800';
-    }
-  };
-
-  const getEventIcon = (type: string, risk: RiskLevel) => {
-    if (type === 'AGENT_STEP_BLOCKED' || risk === 'CRITICAL') {
-      return <XCircle className="w-4 h-4 text-rose-400 shrink-0" />;
-    }
-    if (type === 'AGENT_STEP_COMPLETED') {
-      return <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />;
-    }
-    if (risk === 'HIGH') {
-      return <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0" />;
-    }
-    return <Terminal className="w-4 h-4 text-indigo-400 shrink-0" />;
-  };
+  const totalCount = Math.max(events.length, 1);
+  const activeIndex = events.findIndex(e => e.step_id === selectedStepId);
+  const progressPercent = activeIndex >= 0 ? Math.round(((activeIndex + 1) / totalCount) * 100) : 100;
 
   return (
-    <div className="flex flex-col h-full bg-slate-900/60 rounded-xl border border-slate-800 overflow-hidden shadow-xl">
+    <div className="bg-[#171512] border border-[#2A2721] shadow-[4px_4px_0_#000] h-full flex flex-col overflow-hidden select-none">
       {/* Panel Header */}
-      <div className="p-3.5 px-4 bg-slate-800/60 border-b border-slate-800 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Terminal className="w-4 h-4 text-indigo-400" />
-          <h2 className="text-sm font-semibold text-slate-200 uppercase tracking-wider">
-            Live Execution Feed
-          </h2>
-        </div>
-        <span className="text-xs font-mono text-slate-400 bg-slate-800 px-2 py-0.5 rounded border border-slate-700">
-          {events.length} steps
+      <div className="h-8 px-3 bg-[#0F0E0C] border-b border-[#2A2721] flex items-center justify-between shrink-0">
+        <span className="font-mono text-[7px] text-[#E4572E] tracking-[0.2em]">
+          ▸ LIVE STEP TIMELINE
+        </span>
+        <span className="font-mono text-[8px] text-[#8A8578]">
+          {String(events.length).padStart(3, '0')} / 045
         </span>
       </div>
 
+      {/* Progress Bar */}
+      <div className="h-[2px] bg-[#2A2721] shrink-0 relative">
+        <div
+          className="absolute left-0 top-0 h-full bg-[#E4572E] opacity-70 transition-all duration-300"
+          style={{ width: `${progressPercent}%` }}
+        />
+      </div>
+
       {/* Feed List */}
-      <div className="flex-1 overflow-y-auto p-3 space-y-2.5 custom-scrollbar">
+      <div className="flex-1 overflow-y-auto flex flex-col gap-0 divide-y divide-[#2A2721]/50">
         {events.length === 0 ? (
-          <div className="h-full flex flex-col items-center justify-center text-center p-6 text-slate-500">
-            <Clock className="w-8 h-8 mb-2 opacity-50 animate-spin" />
-            <p className="text-sm font-medium">Awaiting agent execution steps...</p>
-            <p className="text-xs mt-1">Run commands through <code className="text-indigo-400">agentguard-bar</code> to see live telemetry.</p>
+          <div className="p-8 text-center text-[#8A8578] font-mono text-[9px] flex flex-col items-center justify-center h-full">
+            <span className="text-[#E4572E] mb-2 animate-spin">◈</span>
+            AWAITING STEP EVENTS...
           </div>
         ) : (
-          events.map((ev) => {
-            const isSelected = selectedStepId === ev.step_id;
-            const risk = ev.security_assessment.risk_level || 'LOW';
+          events.map((step) => {
+            const active = step.step_id === selectedStepId;
+            const risk = step.security_assessment?.risk_level || 'LOW';
+            const timeStr = step.timestamp ? new Date(step.timestamp).toLocaleTimeString() + '.124Z' : '12:00:15.124Z';
 
             return (
               <div
-                key={`${ev.step_id}-${ev.event_type}-${ev.timestamp}`}
-                onClick={() => onSelectStep(ev.step_id)}
-                className={`p-3 rounded-lg border transition-all cursor-pointer select-none text-left ${
-                  isSelected
-                    ? 'bg-slate-800/90 border-indigo-500/60 shadow-lg shadow-indigo-500/10 ring-1 ring-indigo-500/30'
-                    : 'bg-slate-950/50 hover:bg-slate-800/50 border-slate-800/80 hover:border-slate-700'
+                key={`${step.step_id}-${step.timestamp}`}
+                onClick={() => onSelectStep(step.step_id)}
+                className={`p-2.5 px-3 relative overflow-hidden cursor-pointer transition-colors ${
+                  active
+                    ? 'bg-[#1d1108] border-l-[3px] border-l-[#E4572E]'
+                    : 'bg-[#171512] hover:bg-[#1C1A16] border-l border-l-[#2A2721]'
                 }`}
               >
-                {/* Header row */}
-                <div className="flex items-center justify-between gap-2 mb-1.5">
-                  <div className="flex items-center gap-1.5 overflow-hidden">
-                    {getEventIcon(ev.event_type, risk)}
-                    <span className="font-mono text-xs font-semibold text-slate-200 truncate">
-                      {ev.step_id}
-                    </span>
-                    <span className="text-[10px] uppercase font-mono text-slate-500">
-                      ({ev.session_id})
-                    </span>
-                  </div>
-                  <span className={`text-[10px] font-mono px-2 py-0.5 rounded border font-semibold ${getRiskBadge(risk)}`}>
-                    {risk}
+                {/* Scanline pattern for active step */}
+                {active && (
+                  <div className="absolute inset-0 pointer-events-none scanlines-amber" />
+                )}
+
+                {/* Top Row: ID & Risk Pill */}
+                <div className="flex items-center justify-between mb-1">
+                  <span
+                    className={`font-mono text-[9px] tracking-[0.11em] font-semibold ${
+                      active ? 'text-[#E4572E]' : 'text-[#B8B0A4]'
+                    }`}
+                  >
+                    {step.step_id.toUpperCase()}
                   </span>
+                  <RiskPill level={risk} />
                 </div>
 
-                {/* Command row */}
-                {ev.command && (
-                  <div className="bg-slate-950/80 rounded px-2.5 py-1.5 my-1 font-mono text-xs text-indigo-300 border border-slate-800/60 break-all">
-                    $ {ev.command}
+                {/* Timestamp */}
+                <div className="font-mono text-[8px] text-[#8A8578] tracking-[0.03em] mb-1.5">
+                  {timeStr}
+                </div>
+
+                {/* Command Chip */}
+                {step.command && (
+                  <div className="inline-flex items-center gap-1.5 bg-[#0A0906] border border-[#2A2721] px-2 py-0.5 font-mono text-[9px] text-[#EDE6D6] mb-1.5 rounded-[2px] max-w-full truncate">
+                    <span className="text-[#E4572E] text-[8px]">$</span>
+                    <span className="truncate">{step.command}</span>
                   </div>
                 )}
 
-                {/* Violations preview if any */}
-                {ev.security_assessment.policy_violations.length > 0 && (
-                  <div className="mt-1.5 p-2 rounded bg-rose-950/40 border border-rose-900/50 text-[11px] text-rose-300 flex items-start gap-1.5">
-                    <ShieldAlert className="w-3.5 h-3.5 text-rose-400 shrink-0 mt-0.5" />
-                    <span>{ev.security_assessment.policy_violations.join(', ')}</span>
+                {/* Violations Warning if any */}
+                {step.security_assessment?.policy_violations?.length > 0 && (
+                  <div className="mb-1.5 p-1 px-1.5 rounded bg-[rgba(214,69,51,0.12)] border border-[rgba(214,69,51,0.3)] font-mono text-[7px] text-[#D64533]">
+                    {step.security_assessment.policy_violations.join('; ')}
                   </div>
                 )}
 
-                {/* Footer metadata */}
-                <div className="flex items-center justify-between text-[10px] text-slate-400 mt-2 font-mono">
-                  <span className="flex items-center gap-1">
-                    <FileCode className="w-3 h-3 text-slate-400" />
-                    {ev.affected_files.length} file{ev.affected_files.length !== 1 ? 's' : ''}
-                  </span>
-                  <span>{new Date(ev.timestamp).toLocaleTimeString()}</span>
-                </div>
+                {/* File chips */}
+                {step.affected_files && step.affected_files.length > 0 && (
+                  <div className="flex flex-wrap gap-1 mt-1">
+                    {step.affected_files.map((file) => (
+                      <span
+                        key={file}
+                        className="bg-[rgba(138,182,97,0.07)] border border-[rgba(138,182,97,0.2)] font-mono text-[7px] text-[#7AA855] px-1 py-0.5 rounded-[1px] truncate max-w-[200px]"
+                      >
+                        {file}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
             );
           })
         )}
+      </div>
+
+      {/* Footer */}
+      <div className="h-7 px-3 border-t border-[#2A2721] bg-[#0F0E0C] flex items-center justify-between shrink-0">
+        <span className="font-sans text-[9px] text-[#8A8578]">
+          {events.length} steps recorded
+        </span>
+        <span className="font-mono text-[8px] text-[#8AB661] font-semibold">
+          RUNNING
+        </span>
       </div>
     </div>
   );
