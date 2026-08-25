@@ -39,14 +39,20 @@ impl UdsListener {
             let _ = std::fs::create_dir_all(parent);
         }
 
-        let listener = match tokio::net::UnixListener::bind(&self.socket_path) {
-            Ok(l) => {
-                info!("[UDS] Listening on Unix socket: {}", self.socket_path);
-                l
-            }
-            Err(e) => {
-                error!("[UDS] Failed to bind Unix socket {}: {}", self.socket_path, e);
-                return;
+        let mut backoff = Duration::from_millis(100);
+        let max_backoff = Duration::from_secs(5);
+
+        let listener = loop {
+            match tokio::net::UnixListener::bind(&self.socket_path) {
+                Ok(l) => {
+                    info!("[UDS] Successfully bound Unix domain socket: {}", self.socket_path);
+                    break l;
+                }
+                Err(e) => {
+                    error!("[UDS] Bind error (retrying in {:?}): {}", backoff, e);
+                    sleep(backoff).await;
+                    backoff = (backoff * 2).min(max_backoff);
+                }
             }
         };
 
@@ -59,7 +65,7 @@ impl UdsListener {
                     });
                 }
                 Err(e) => {
-                    warn!("[UDS] Accept error: {}", e);
+                    warn!("[UDS] Accept connection error: {}", e);
                     sleep(Duration::from_millis(100)).await;
                 }
             }
@@ -68,10 +74,9 @@ impl UdsListener {
 
     #[cfg(not(unix))]
     pub async fn run(self: Arc<Self>) {
-        info!("[UDS] Non-unix platform detected; starting IPC listener loop for {}", self.socket_path);
-        // On non-Unix, simulate periodic heartbeat event if socket unavailable
+        info!("[UDS] Non-unix platform detected; running fallback IPC listener for {}", self.socket_path);
         loop {
-            sleep(Duration::from_secs(10)).await;
+            sleep(Duration::from_secs(15)).await;
         }
     }
 
