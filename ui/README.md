@@ -5,7 +5,7 @@ Mission-critical operator cockpit with pixel-faithful Figma mission-control brut
 ## Design System Tokens
 - **Palette**: Void (`#0E0D0B`), Charcoal (`#171512`), Border (`#2A2721`), Cream (`#EDE6D6`), Ink (`#14120E`), Orange (`#E4572E`), Green (`#8AB661`), Amber (`#E8A33D`), Red (`#D64533`), Bone (`#8A8578`).
 - **Typography**: 
-  - Display: `Fraunces` (Serif)
+  - Display: `Fraunces` (Display Serif)
   - Data / Labels / Code: `Space Mono` (Monospace)
   - Body: `Archivo` (Sans-serif)
 - **Textures**: SVG `feTurbulence` film grain overlay, CRT scanlines (`repeating-linear-gradient`), paper rule textures, corner registration marks, and solid `4px 4px 0 #000` offset shadows.
