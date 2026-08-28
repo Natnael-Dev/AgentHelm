@@ -1,21 +1,61 @@
-# Dependencies
-node_modules/
-.pnpm-store/
+# ─── OS & SYSTEM ─────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+*.tmp
 
-# Production build
-dist/
-build/
-bin/
-
-# Environment and logs
-*.log
+# ─── SECRETS & ENVIRONMENT ───────────────────────────────────────────────────
 .env
 .env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem
+*.key
+*.cert
+*.pfx
 
-# Rust & Cargo
+# ─── NODE & JAVASCRIPT / TYPESCRIPT ──────────────────────────────────────────
+node_modules/
+dist/
+build/
+.pnpm-store/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.vite/
+
+# ─── GO BINARIES & ARTIFACTS ─────────────────────────────────────────────────
+bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+vendor/
+*.test
+*.out
+
+# ─── RUST & CARGO ────────────────────────────────────────────────────────────
 target/
 Cargo.lock
 
-# OS Files
-.DS_Store
-Thumbs.db
+# ─── IDE & EDITORS ───────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+*.sublime-workspace
+*.sublime-project
+
+# ─── LOGS & RUNTIME DATA ─────────────────────────────────────────────────────
+*.log
+/tmp/agentguard.sock
+/workspace
