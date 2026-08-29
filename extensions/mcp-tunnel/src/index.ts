@@ -6,7 +6,7 @@ function parseArgs(): TunnelConfig {
   const args = process.argv.slice(2);
   let port = 9000;
   let host = '127.0.0.1';
-  let authToken = process.env.AGENTGUARD_MCP_SECRET || 'agentguard_default_secret_key';
+  let authToken = process.env.AGENTHELM_MCP_SECRET || 'agenthelm_default_secret_key';
   let sandboxWorktreeDir = process.cwd();
 
   for (let i = 0; i < args.length; i++) {

@@ -1,4 +1,4 @@
-module github.com/agentguard/agentguard-live/extensions/docs-scraper
+module github.com/agenthelm/agenthelm-live/extensions/docs-scraper
 
 go 1.22
 

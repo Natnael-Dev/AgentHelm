@@ -20,7 +20,7 @@ COPY extensions/docs-scraper ./extensions/docs-scraper
 
 # Build static binary
 WORKDIR /workspace/core/daemon
-RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o /bin/agentguard-bar ./cmd/agentguard-bar
+RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o /bin/agenthelm-bar ./cmd/agenthelm-bar
 
 # ─── RUNTIME STAGE ───────────────────────────────────────────────────────────
 FROM alpine:3.19
@@ -30,10 +30,10 @@ RUN apk add --no-cache git bash ca-certificates curl
 WORKDIR /app
 
 # Copy binary from builder
-COPY --from=builder /bin/agentguard-bar /usr/local/bin/agentguard-bar
+COPY --from=builder /bin/agenthelm-bar /usr/local/bin/agenthelm-bar
 
 # Shared volume mount point for UDS socket and worktrees
 VOLUME ["/tmp", "/workspace"]
 
-ENTRYPOINT ["/usr/local/bin/agentguard-bar"]
+ENTRYPOINT ["/usr/local/bin/agenthelm-bar"]
 CMD ["--help"]

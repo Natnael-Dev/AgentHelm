@@ -12,7 +12,7 @@ export class EncryptedTunnel {
   constructor(config: TunnelConfig) {
     this.config = config;
     // Derive 256-bit key from secret or generate ephemeral secret
-    const secret = config.authToken || 'agentguard_default_ephemeral_secret_key_32b';
+    const secret = config.authToken || 'agenthelm_default_ephemeral_secret_key_32b';
     this.key = crypto.createHash('sha256').update(secret).digest();
   }
 

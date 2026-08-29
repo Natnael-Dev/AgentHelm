@@ -7,7 +7,7 @@ use tokio::sync::broadcast;
 use tokio::time::{sleep, Duration};
 use tracing::{debug, error, info, warn};
 
-pub const DEFAULT_SOCKET_PATH: &str = "/tmp/agentguard.sock";
+pub const DEFAULT_SOCKET_PATH: &str = "/tmp/agenthelm.sock";
 
 pub struct UdsListener {
     socket_path: String,

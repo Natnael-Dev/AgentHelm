@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * AgentGuard Exeora MCP Tunnel Standalone Launcher
+ * AgentHelm Exeora MCP Tunnel Standalone Launcher
  * Supports both stdio JSON-RPC and HTTP/WebSocket loopback transport.
  * Usage: node start.js [--port 9000] [--host 127.0.0.1]
  */
@@ -42,7 +42,7 @@ function handleMcpRequest(req) {
             resources: {}
           },
           serverInfo: {
-            name: 'agentguard-exeora-tunnel',
+            name: 'agenthelm-exeora-tunnel',
             version: '1.0.0'
           }
         }
@@ -77,7 +77,7 @@ function handleMcpRequest(req) {
             },
             {
               name: 'inspect_ledger',
-              description: 'Read the append-only AgentGuard security ledger steps',
+              description: 'Read the append-only AgentHelm security ledger steps',
               inputSchema: {
                 type: 'object',
                 properties: {
@@ -102,7 +102,7 @@ function handleMcpRequest(req) {
             content: [
               {
                 type: 'text',
-                text: `[AgentGuard Sandbox: ${filePath}]\nSecurity status: VERIFIED\nWorktree: sandbox-042\nIsolation: Worktree Branch`
+                text: `[AgentHelm Sandbox: ${filePath}]\nSecurity status: VERIFIED\nWorktree: sandbox-042\nIsolation: Worktree Branch`
               }
             ]
           }
@@ -163,7 +163,7 @@ function handleMcpRequest(req) {
         result: {
           resources: [
             {
-              uri: 'agentguard://ledger/active',
+              uri: 'agenthelm://ledger/active',
               name: 'Active Security Ledger',
               mimeType: 'application/json'
             }
@@ -240,7 +240,7 @@ const server = http.createServer((req, res) => {
   }
 
   res.writeHead(404);
-  res.end('AgentGuard MCP Tunnel');
+  res.end('AgentHelm MCP Tunnel');
 });
 
 server.listen(port, host, () => {

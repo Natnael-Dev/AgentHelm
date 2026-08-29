@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	gitadapter "github.com/agentguard/agentguard-live/core/daemon/internal/adapters/git"
+	gitadapter "github.com/agenthelm/agenthelm-live/core/daemon/internal/adapters/git"
 )
 
 type Manager struct {

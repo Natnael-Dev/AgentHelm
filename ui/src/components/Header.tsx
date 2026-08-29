@@ -53,7 +53,7 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="flex items-center gap-3">
         <div className="w-2.5 h-2.5 rounded-full shrink-0 bg-[#F05A2A] shadow-[0_0_10px_#F05A2A,0_0_20px_rgba(240,90,42,0.4)] animate-[blink_1.4s_step-end_infinite]" />
         <span className="font-mono text-[16px] font-bold text-[#D8CDB7] tracking-[0.22em]">
-          AGENTGUARD LIVE
+          AGENTHELM LIVE
         </span>
         <span className="font-mono text-[11px] text-[#827869] tracking-[0.06em] ml-1">
           v2.4.1

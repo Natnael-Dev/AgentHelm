@@ -1,7 +1,7 @@
-//! AgentGuard Live Telemetry Core Library
+//! AgentHelm Live Telemetry Core Library
 //!
 //! Real-time telemetry ingestion, Unix Domain Socket stream listener,
-//! and Axum WebSocket broadcast pipeline for AgentGuard Live.
+//! and Axum WebSocket broadcast pipeline for AgentHelm Live.
 
 pub mod analytics;
 pub mod hardware;

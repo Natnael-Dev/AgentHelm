@@ -1,4 +1,4 @@
-# ─── AGENTGUARD LIVE MASTER BUILD ORCHESTRATION ──────────────────────────────
+# ─── AGENTHELM LIVE MASTER BUILD ORCHESTRATION ──────────────────────────────
 .PHONY: help dev dev-up dev-down build-backend build-ui build-all test clean
 
 # Default target
@@ -6,7 +6,7 @@
 
 help: ## Display this help message
 	@echo "========================================================================"
-	@echo "  AGENTGUARD LIVE — MISSION-CRITICAL AI COCKPIT BUILD SYSTEM"
+	@echo "  AGENTHELM LIVE — MISSION-CRITICAL AI COCKPIT BUILD SYSTEM"
 	@echo "========================================================================"
 	@echo "Available targets:"
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-18s\033[0m %s\n", $$1, $$2}'
@@ -14,7 +14,7 @@ help: ## Display this help message
 # ─── DEVELOPMENT ENVIRONMENT ──────────────────────────────────────────────────
 
 dev: ## Start full stack development environment (Docker backend + local UI)
-	@echo "[*] Launching AgentGuard backend services via Docker Compose..."
+	@echo "[*] Launching AgentHelm backend services via Docker Compose..."
 	docker compose up -d
 	@echo "[*] Starting Vite development server for Cockpit UI..."
 	cd ui && npm run dev
@@ -29,12 +29,12 @@ dev-down: ## Stop all running background Docker containers
 
 build-backend: ## Compile native binaries for Go Daemon and Rust Telemetry
 	@echo "[*] Building Go BAR Daemon & Ketch Scraper..."
-	cd core/daemon && go build -v -o ../../bin/agentguard-bar ./cmd/agentguard-bar
+	cd core/daemon && go build -v -o ../../bin/agenthelm-bar ./cmd/agenthelm-bar
 	cd extensions/docs-scraper && go build -v -o ../../bin/ketch ./cmd/ketch
 	@echo "[*] Building Rust Telemetry & Dispatch Engine..."
-	cargo build --release --package agentguard-telemetry
+	cargo build --release --package agenthelm-telemetry
 	@mkdir -p bin
-	@cp target/release/agentguard-telemetry bin/ 2>/dev/null || true
+	@cp target/release/agenthelm-telemetry bin/ 2>/dev/null || true
 	@echo "[+] Backend binaries compiled to ./bin/"
 
 build-ui: ## Compile production React bundle and assemble Tauri desktop application
@@ -53,7 +53,7 @@ test: ## Execute test suites across Go, Rust, and UI packages
 	cd core/daemon && go test -v ./...
 	cd extensions/docs-scraper && go test -v ./...
 	@echo "[*] Running Rust telemetry tests..."
-	cargo test --package agentguard-telemetry
+	cargo test --package agenthelm-telemetry
 	@echo "[*] Validating TypeScript compilation..."
 	cd ui && npm run build
 

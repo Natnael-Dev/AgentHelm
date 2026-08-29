@@ -84,7 +84,7 @@ export const MonacoDiff: React.FC<MonacoDiffProps> = ({ step }) => {
   const language = detectLanguage(fileTitle);
 
   const handleEditorWillMount = (monaco: Monaco) => {
-    monaco.editor.defineTheme('agentguard-brutalist', {
+    monaco.editor.defineTheme('agenthelm-brutalist', {
       base: 'vs-dark',
       inherit: true,
       rules: [
@@ -150,7 +150,7 @@ export const MonacoDiff: React.FC<MonacoDiffProps> = ({ step }) => {
         <DiffEditor
           height="100%"
           language={language}
-          theme="agentguard-brutalist"
+          theme="agenthelm-brutalist"
           beforeMount={handleEditorWillMount}
           original={original}
           modified={modified}

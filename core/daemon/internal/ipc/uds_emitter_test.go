@@ -4,11 +4,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/agentguard/agentguard-live/core/daemon/internal/core/ledger"
+	"github.com/agenthelm/agenthelm-live/core/daemon/internal/core/ledger"
 )
 
 func TestUDSEmitterWireConversion(t *testing.T) {
-	emitter := NewUDSEmitter("/tmp/test_agentguard.sock")
+	emitter := NewUDSEmitter("/tmp/test_agenthelm.sock")
 
 	exitCode := 0
 	step := &ledger.Step{

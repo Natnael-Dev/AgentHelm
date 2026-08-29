@@ -14,7 +14,7 @@ import (
 )
 
 // DefaultUserAgent identifies the scraper in HTTP requests
-const DefaultUserAgent = "AgentGuard-Ketch/1.0 (docs-scraper)"
+const DefaultUserAgent = "AgentHelm-Ketch/1.0 (docs-scraper)"
 
 // DefaultTimeout is the maximum duration for a single fetch operation
 const DefaultTimeout = 15 * time.Second

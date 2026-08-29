@@ -13,13 +13,13 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/agentguard/agentguard-live/core/daemon/internal/core/diff"
-	"github.com/agentguard/agentguard-live/core/daemon/internal/core/exec"
-	"github.com/agentguard/agentguard-live/core/daemon/internal/core/ledger"
-	"github.com/agentguard/agentguard-live/core/daemon/internal/core/policy"
-	"github.com/agentguard/agentguard-live/core/daemon/internal/ipc"
-	"github.com/agentguard/agentguard-live/core/daemon/internal/util/log"
-	scraper "github.com/agentguard/agentguard-live/extensions/docs-scraper"
+	"github.com/agenthelm/agenthelm-live/core/daemon/internal/core/diff"
+	"github.com/agenthelm/agenthelm-live/core/daemon/internal/core/exec"
+	"github.com/agenthelm/agenthelm-live/core/daemon/internal/core/ledger"
+	"github.com/agenthelm/agenthelm-live/core/daemon/internal/core/policy"
+	"github.com/agenthelm/agenthelm-live/core/daemon/internal/ipc"
+	"github.com/agenthelm/agenthelm-live/core/daemon/internal/util/log"
+	scraper "github.com/agenthelm/agenthelm-live/extensions/docs-scraper"
 )
 
 func main() {
@@ -41,11 +41,11 @@ func main() {
 	// ─── EXTENSION COMMAND 1: fetch-docs <url> (Ketch Scraper) ───────────────────
 	if subCommand == "fetch-docs" {
 		if len(args) < 2 {
-			fmt.Fprintln(os.Stderr, "Error: fetch-docs requires a URL argument. Usage: agentguard-bar fetch-docs <url>")
+			fmt.Fprintln(os.Stderr, "Error: fetch-docs requires a URL argument. Usage: agenthelm-bar fetch-docs <url>")
 			os.Exit(1)
 		}
 		targetURL := args[1]
-		log.Info("AgentGuard Ketch: Fetching documentation from %s", targetURL)
+		log.Info("AgentHelm Ketch: Fetching documentation from %s", targetURL)
 
 		stepID := fmt.Sprintf("step_fetch_%d", time.Now().UnixNano()/1000000)
 		result, err := scraper.FetchDocs(targetURL)
@@ -73,7 +73,7 @@ func main() {
 			}
 		}
 
-		log.Info("AgentGuard Exeora: Spawning Node.js MCP loopback tunnel on port %d...", port)
+		log.Info("AgentHelm Exeora: Spawning Node.js MCP loopback tunnel on port %d...", port)
 		stepID := fmt.Sprintf("step_tunnel_%d", time.Now().UnixNano()/1000000)
 
 		// Locate tunnel script relative to daemon execution directory
@@ -197,14 +197,14 @@ func findTunnelScript() string {
 }
 
 func printUsage() {
-	fmt.Println("AgentGuard Blade Agent Runtime (BAR) Daemon — v2.4.1")
+	fmt.Println("AgentHelm Blade Agent Runtime (BAR) Daemon — v2.4.1")
 	fmt.Println("Usage:")
-	fmt.Println("  agentguard-bar [options] -- <command> [args...]      Intercept and sandbox command")
-	fmt.Println("  agentguard-bar fetch-docs <url>                      Scrape documentation with Ketch")
-	fmt.Println("  agentguard-bar start-tunnel [--port 9000]            Spawn Exeora MCP tunnel child process")
+	fmt.Println("  agenthelm-bar [options] -- <command> [args...]      Intercept and sandbox command")
+	fmt.Println("  agenthelm-bar fetch-docs <url>                      Scrape documentation with Ketch")
+	fmt.Println("  agenthelm-bar start-tunnel [--port 9000]            Spawn Exeora MCP tunnel child process")
 	fmt.Println("\nOptions:")
 	fmt.Println("  -session <id>   Session identifier (default: sess_default)")
 	fmt.Println("  -task <id>      Task identifier (default: task_default)")
-	fmt.Println("  -sock <path>    Unix domain socket path (default: /tmp/agentguard.sock)")
+	fmt.Println("  -sock <path>    Unix domain socket path (default: /tmp/agenthelm.sock)")
 	fmt.Println("  -port <num>     MCP Tunnel port (default: 9000)")
 }

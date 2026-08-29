@@ -57,5 +57,5 @@ Cargo.lock
 
 # ─── LOGS & RUNTIME DATA ─────────────────────────────────────────────────────
 *.log
-/tmp/agentguard.sock
+/tmp/agenthelm.sock
 /workspace

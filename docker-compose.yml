@@ -6,25 +6,25 @@ services:
     build:
       context: .
       dockerfile: core/daemon/Dockerfile
-    container_name: agentguard-daemon
+    container_name: agenthelm-daemon
     restart: unless-stopped
     volumes:
       - uds-socket:/tmp
       - ./workspace:/workspace
     environment:
-      - AGENTGUARD_ENV=development
-      - AGENTGUARD_SOCK=/tmp/agentguard.sock
-      - AGENTGUARD_WORKSPACE=/workspace
-    command: ["--session", "sess_docker_01", "--sock", "/tmp/agentguard.sock"]
+      - AGENTHELM_ENV=development
+      - AGENTHELM_SOCK=/tmp/agenthelm.sock
+      - AGENTHELM_WORKSPACE=/workspace
+    command: ["--session", "sess_docker_01", "--sock", "/tmp/agenthelm.sock"]
     networks:
-      - agentguard-net
+      - agenthelm-net
 
   # ─── RUST TELEMETRY & DISPATCH ENGINE ───────────────────────────────────────
   telemetry:
     build:
       context: .
       dockerfile: telemetry/Dockerfile
-    container_name: agentguard-telemetry
+    container_name: agenthelm-telemetry
     restart: unless-stopped
     ports:
       - "8765:8765"
@@ -32,19 +32,19 @@ services:
       - uds-socket:/tmp
     environment:
       - RUST_LOG=info
-      - AGENTGUARD_SOCK=/tmp/agentguard.sock
+      - AGENTHELM_SOCK=/tmp/agenthelm.sock
       - WS_BIND_ADDR=0.0.0.0:8765
     depends_on:
       - daemon
     networks:
-      - agentguard-net
+      - agenthelm-net
 
   # ─── NODE.JS EXEORA MCP TUNNEL ──────────────────────────────────────────────
   mcp-tunnel:
     build:
       context: .
       dockerfile: extensions/mcp-tunnel/Dockerfile
-    container_name: agentguard-mcp-tunnel
+    container_name: agenthelm-mcp-tunnel
     restart: unless-stopped
     ports:
       - "9000:9000"
@@ -53,14 +53,14 @@ services:
     environment:
       - PORT=9000
       - HOST=0.0.0.0
-      - AGENTGUARD_MCP_SECRET=agentguard_master_secret_key_32b
+      - AGENTHELM_MCP_SECRET=agenthelm_master_secret_key_32b
     networks:
-      - agentguard-net
+      - agenthelm-net
 
 volumes:
   uds-socket:
     driver: local
 
 networks:
-  agentguard-net:
+  agenthelm-net:
     driver: bridge

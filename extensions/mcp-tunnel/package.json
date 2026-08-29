@@ -1,7 +1,7 @@
 {
-  "name": "@agentguard/mcp-tunnel",
+  "name": "@agenthelm/mcp-tunnel",
   "version": "0.1.0",
-  "description": "Encrypted MCP loopback tunnel for AgentGuard sandbox — allows external AI agents to interact with the isolated workspace",
+  "description": "Encrypted MCP loopback tunnel for AgentHelm sandbox — allows external AI agents to interact with the isolated workspace",
   "private": true,
   "main": "dist/index.js",
   "scripts": {

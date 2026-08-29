@@ -21,7 +21,7 @@ export function useTelemetryWs() {
       ws.onopen = () => {
         setStatus('connected');
         retryCountRef.current = 0;
-        console.log('[WS] Connected to AgentGuard Telemetry server (ws://127.0.0.1:8765)');
+        console.log('[WS] Connected to AgentHelm Telemetry server (ws://127.0.0.1:8765)');
       };
 
       ws.onmessage = (event) => {

@@ -1,4 +1,4 @@
-# AgentGuard Cockpit UI (`ui/`)
+# AgentHelm Cockpit UI (`ui/`)
 
 Mission-critical operator cockpit with pixel-faithful Figma mission-control brutalist design.
 
@@ -13,7 +13,7 @@ Mission-critical operator cockpit with pixel-faithful Figma mission-control brut
 ## Components
 1. **TopBar (`Header.tsx`)**: Monospace wordmark, blinking orange status beacon, cream session chip (`SESS_9823F4A • WORKTREE sandbox-042 • CLEAN`), status LEDs (`WS:8765 LINKED`, `UDS LINKED`, `STREAM DECK: ARMED`), and live UTC clock.
 2. **StepTimeline (`StepTimeline.tsx`)**: Live step feed with risk pills (`LOW`, `MED`, `HIGH`, `CRIT`), command chips, file tags, and active step scanline highlight.
-3. **PatchViewer (`MonacoDiff.tsx`)**: Custom Monaco `agentguard-brutalist` dark theme, addition/deletion counters, file tabs, and CRT scanlines.
+3. **PatchViewer (`MonacoDiff.tsx`)**: Custom Monaco `agenthelm-brutalist` dark theme, addition/deletion counters, file tabs, and CRT scanlines.
 4. **TokenAnalytics (`AnalyticsGauge.tsx`)**: Cream paper card with giant 52px Fraunces cost readout (`$0.0042`), active VU-meter bar waveform, and token velocity readout.
 5. **PolicyEngine (`PolicyPanel.tsx`)**: Armed security policy rules with blocked strikethrough indicators and clean violation state.
 6. **SandboxCard (`SandboxPanel.tsx`)**: SVG git worktree isolation topology and ledger statistics.

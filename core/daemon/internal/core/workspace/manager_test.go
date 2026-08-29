@@ -5,11 +5,11 @@ import (
 	"path/filepath"
 	"testing"
 
-	gitadapter "github.com/agentguard/agentguard-live/core/daemon/internal/adapters/git"
+	gitadapter "github.com/agenthelm/agenthelm-live/core/daemon/internal/adapters/git"
 )
 
 func TestWorkspaceManagerCreation(t *testing.T) {
-	tempDir, err := os.MkdirTemp("", "agentguard_test_*")
+	tempDir, err := os.MkdirTemp("", "agenthelm_test_*")
 	if err != nil {
 		t.Fatalf("Failed to create temp dir: %v", err)
 	}

@@ -1,4 +1,4 @@
-# AgentGuard Extensions (`extensions/`)
+# AgentHelm Extensions (`extensions/`)
 
 Modular power-ups extending the sandbox runtime with documentation retrieval and host IDE integration.
 
@@ -39,11 +39,11 @@ Ported from `leynier/exeora`. Encrypted loopback bridge exposing Model Context P
 ---
 
 ## 3. Daemon CLI Integration (`core/daemon/`)
-The extensions are unified directly into the `agentguard-bar` daemon CLI:
+The extensions are unified directly into the `agenthelm-bar` daemon CLI:
 ```bash
 # Scrape documentation into the agent context
-agentguard-bar fetch-docs https://docs.rs/tokio/latest/tokio/
+agenthelm-bar fetch-docs https://docs.rs/tokio/latest/tokio/
 
 # Spawn MCP tunnel for external IDE connection
-agentguard-bar start-tunnel --port 9000
+agenthelm-bar start-tunnel --port 9000
 ```

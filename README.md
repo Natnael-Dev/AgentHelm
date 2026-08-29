@@ -1,17 +1,16 @@
 ```text
-   ▄▄▄       ▄████  ▓█████  ███▄    █ ▄▄▄█████▓ ▄████  █    ██  ▄▄▄       ██▀███  ▓█████▄
-  ▒████▄    ██▒ ▀█▒ ▓█   ▀  ██ ▀█   █ ▓  ██▒ ▓▒██▒ ▀█▒ ██  ▓██▒▒████▄    ▓██ ▒ ██▒▒██▀ ██▌
-  ▒██  ▀█▄ ▒██░▄▄▄░ ▒███   ▓██  ▀█ ██▒▒ ▓██░ ▒░██░▄▄▄░▓██  ▒██░▒██  ▀█▄  ▓██ ░▄█ ▒░██   █▌
-  ░██▄▄▄▄██░▓█  ██▓ ▒▓█  ▄ ▓██▒  ▐▌██▒░ ▓██▓ ░░▓█  ██▓▓▓█  ░██░░██▄▄▄▄██ ▒██▀▀█▄  ░▓█▄   ▌
-   ▓█   ▓██▒░▒▓███▀▒░▒████▒▒██░   ▓██░  ▒██▒ ░░▒▓███▀▒▒▒█████▓  ▓█   ▓██▒░██▓ ▒██▒░▒████▓ 
-   ▒▒   ▓▒█░ ░▒   ▒ ░░ ▒░ ░░ ▒░   ▒ ▒   ▒ ░░   ░▒   ▒ ▒▒▓▒ ▒ ▒  ▒▒   ▓▒█░░ ▒▓ ░▒▓░ ▒▒▓  ▒ 
-    ▒   ▒▒ ░  ░   ░  ░ ░  ░░ ░░   ░ ▒░    ░     ░   ░ ░ ▒░ ░ ░   ▒   ▒▒ ░  ░▒ ░ ▒░ ░ ▒  ▒ 
-    ░   ▒   ░ ░   ░    ░      ░   ░ ░   ░      ░ ░   ░ ░ ░  ░ ░   ░   ▒     ░░   ░  ░ ░  ░ 
-        ░  ░      ░    ░  ░         ░                ░   ░            ░  ░   ░        ░    
-                                                                                        ░     
+   ▄▄▄       ▄████  ▓█████  ███▄    █ ▄▄▄█████▓ ██░ ██ ▓█████  ██▓     ███▄ ▄███▓
+  ▒████▄    ██▒ ▀█▒ ▓█   ▀  ██ ▀█   █ ▓  ██▒ ▓▒▓██░ ██▒▓█   ▀ ▓██▒    ▓██▒▀█▀ ██▒
+  ▒██  ▀█▄ ▒██░▄▄▄░ ▒███   ▓██  ▀█ ██▒▒ ▓██░ ▒░▒██▀▀██░▒███   ▒██░    ▓██    ▓██░
+  ░██▄▄▄▄██░▓█  ██▓ ▒▓█  ▄ ▓██▒  ▐▌██▒░ ▓██▓ ░ ░▓█ ░██ ▒▓█  ▄ ▒██░    ▒██    ▒██ 
+   ▓█   ▓██▒░▒▓███▀▒░▒████▒▒██░   ▓██░  ▒██▒ ░ ░▓█▒░██▓░▒████▒░██████▒▒██▒   ░██▒
+   ▒▒   ▓▒█░ ░▒   ▒ ░░ ▒░ ░░ ▒░   ▒ ▒   ▒ ░░    ▒ ░░▒░▒░░ ▒░ ░░ ▒░▓  ░░ ▒░   ░  ░
+    ▒   ▒▒ ░  ░   ░  ░ ░  ░░ ░░   ░ ▒░    ░     ▒ ░▒░ ░ ░ ░  ░░ ░ ▒  ░░  ░      ░
+    ░   ▒   ░ ░   ░    ░      ░   ░ ░   ░       ░  ░░ ░   ░     ░ ░   ░      ░   
+        ░  ░      ░    ░  ░         ░           ░  ░  ░   ░  ░    ░  ░       ░   
 ```
 
-# 🛡️ AgentGuard Live
+# 🛡️ AgentHelm Live
 ### The Mission-Control Cockpit & Security Sandbox for AI Coding Agents
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
@@ -20,24 +19,24 @@
 [![Tauri v2](https://img.shields.io/badge/Tauri-v2-24C8D8.svg)](https://tauri.app)
 [![Node.js 20](https://img.shields.io/badge/Node.js-20-339933.svg)](https://nodejs.org)
 
-**AgentGuard Live** gives you total visibility and control over autonomous AI coding agents (like Claude Code, Cursor, and Windsurf). It intercepts their terminal commands, checks them against security rules, isolates all changes in temporary Git workspaces, and gives you a tactile cockpit to **review code diffs in real-time, approve changes, undo steps, or hit an emergency kill switch.**
+**AgentHelm Live** gives you total visibility and control over autonomous AI coding agents (like Claude Code, Cursor, and Windsurf). It intercepts their terminal commands, checks them against security rules, isolates all changes in temporary Git workspaces, and gives you a tactile cockpit to **review code diffs in real-time, approve changes, undo steps, or hit an emergency kill switch.**
 
 ---
 
 ## 📸 Cockpit Overview
 
-![AgentGuard Live Mission Control Cockpit](docs/assets/agentguard_dashboard_full.png)
+![AgentHelm Live Mission Control Cockpit](docs/assets/agenthelm_dashboard_full.png)
 
 ---
 
-## ✨ Why You Need AgentGuard Live
+## ✨ Why You Need AgentHelm Live
 
 When AI agents write code on your machine, they run terminal commands, install packages, and edit files. Without a guardrail:
 - ❌ A hallucinating agent can accidentally run `rm -rf /` or overwrite critical files.
 - ❌ You have no real-time idea what files are being touched until after the damage is done.
 - ❌ There is no instant "undo" button for a bad agent step.
 
-**AgentGuard Live fixes this completely:**
+**AgentHelm Live fixes this completely:**
 - 🛡️ **Zero Risk**: All code runs in a sandboxed Git worktree (`sandbox-042`). Your main branch is untouched until you hit **[ APPROVE & MERGE ]**.
 - 🚫 **Active Defense**: Blocks dangerous shell commands instantly before they execute.
 - 👁️ **Live Code Diffs**: Side-by-Side Monaco diff viewer showing exactly what the AI changed.
@@ -51,7 +50,7 @@ When AI agents write code on your machine, they run terminal commands, install p
 ### 1. Live Step Timeline & Risk Badges
 The left panel tracks every step the AI proposes and runs. Each card shows the exact shell command, timestamps, and a color-coded **Risk Level** (`LOW`, `MED`, `HIGH`, `CRIT`).
 
-![Live Step Timeline](docs/assets/agentguard_timeline_panel.png)
+![Live Step Timeline](docs/assets/agenthelm_timeline_panel.png)
 
 - **Click any step**: Instantly loads its code changes into the center Monaco diff viewer.
 - **Scanline highlight**: Shows the currently inspected active step with amber CRT scanlines.
@@ -61,7 +60,7 @@ The left panel tracks every step the AI proposes and runs. Each card shows the e
 ### 2. Side-by-Side Code Diff Inspector
 The center panel renders unified Git diffs using a custom brutalist dark theme.
 
-![Monaco Code Diff Editor](docs/assets/agentguard_diff_editor.png)
+![Monaco Code Diff Editor](docs/assets/agenthelm_diff_editor.png)
 
 - **Left Pane (`ORIGINAL ← BASE`)**: Clean baseline code before the AI touched it.
 - **Right Pane (`MODIFIED ← PATCHED`)**: Proposed patch in the sandbox.
@@ -72,7 +71,7 @@ The center panel renders unified Git diffs using a custom brutalist dark theme.
 ### 3. Telemetry, Policy Engine & Sandbox Status
 The right column stacks three mission-critical telemetry widgets:
 
-![Telemetry, Policy and Sandbox Panels](docs/assets/agentguard_telemetry_policy.png)
+![Telemetry, Policy and Sandbox Panels](docs/assets/agenthelm_telemetry_policy.png)
 
 1. **Token Analytics (Warm Paper Card)**:
    - Giant `$0.0042` estimated cost per step in serif typography.
@@ -91,7 +90,7 @@ The right column stacks three mission-critical telemetry widgets:
 ### 4. Hardware Keycap Control Deck
 The bottom deck features heavy 3D physical keycap buttons with mechanical press travel:
 
-![Hardware Control Deck](docs/assets/agentguard_control_deck.png)
+![Hardware Control Deck](docs/assets/agenthelm_control_deck.png)
 
 - **`[ ✓ APPROVE & MERGE ]` (Green)**: Merges the sandboxed Git worktree into your main branch.
 - **`[ ↩ STEP UNDO ]` (Amber)**: Rolls back the last step in the sandbox without affecting previous work.
@@ -109,8 +108,8 @@ The bottom deck features heavy 3D physical keycap buttons with mechanical press 
 ### Start the Dashboard & Tunnel
 ```bash
 # 1. Clone the repository
-git clone https://github.com/agentguard/agentguard-live.git
-cd agentguard-live
+git clone https://github.com/agenthelm/agenthelm-live.git
+cd agenthelm-live
 
 # 2. Start the MCP Tunnel in Terminal 1
 node extensions/mcp-tunnel/start.js --port 9000
@@ -126,25 +125,25 @@ Open your browser to:
 
 ## 🛠️ Step-by-Step Configuration Guide (IDE Setup)
 
-AgentGuard Live communicates with AI coding assistants (Antigravity, Cursor, Claude Desktop, VS Code/Cline) via the **Model Context Protocol (MCP)**. Follow the steps below for your tool:
+AgentHelm Live communicates with AI coding assistants (Antigravity, Cursor, Claude Desktop, VS Code/Cline) via the **Model Context Protocol (MCP)**. Follow the steps below for your tool:
 
 ### 1. Antigravity IDE Setup
-Add the `agentguard` server entry to your global config file at `C:\Users\<User>\.gemini\config\mcp_config.json` (or `.agents/mcp_config.json` in your workspace):
+Add the `agenthelm` server entry to your global config file at `C:\Users\<User>\.gemini\config\mcp_config.json` (or `.agents/mcp_config.json` in your workspace):
 
 ```json
 {
   "mcpServers": {
-    "agentguard": {
+    "agenthelm": {
       "command": "node",
       "args": [
-        "c:/path/to/agentguard-live/extensions/mcp-tunnel/start.js",
+        "c:/path/to/agenthelm-live/extensions/mcp-tunnel/start.js",
         "--port",
         "9000",
         "--host",
         "127.0.0.1"
       ],
       "env": {
-        "AGENTGUARD_MCP_SECRET": "agentguard_master_secret_key_32b"
+        "AGENTHELM_MCP_SECRET": "agenthelm_master_secret_key_32b"
       }
     }
   }
@@ -157,17 +156,17 @@ Add the `agentguard` server entry to your global config file at `C:\Users\<User>
 1. Open Cursor Settings (`Ctrl + Shift + J` or `Cmd + Shift + J`).
 2. Navigate to **Features ➔ MCP Servers ➔ Add New MCP Server**.
 3. Fill in:
-   - **Name**: `agentguard`
+   - **Name**: `agenthelm`
    - **Type**: `command`
-   - **Command**: `node "c:/path/to/agentguard-live/extensions/mcp-tunnel/start.js" --port 9000`
+   - **Command**: `node "c:/path/to/agenthelm-live/extensions/mcp-tunnel/start.js" --port 9000`
 4. Or directly edit `~/.cursor/mcp.json`:
 ```json
 {
   "mcpServers": {
-    "agentguard": {
+    "agenthelm": {
       "command": "node",
       "args": [
-        "c:/path/to/agentguard-live/extensions/mcp-tunnel/start.js",
+        "c:/path/to/agenthelm-live/extensions/mcp-tunnel/start.js",
         "--port",
         "9000"
       ]
@@ -187,17 +186,17 @@ Add the following under `"mcpServers"`:
 ```json
 {
   "mcpServers": {
-    "agentguard": {
+    "agenthelm": {
       "command": "node",
       "args": [
-        "/absolute/path/to/agentguard-live/extensions/mcp-tunnel/start.js",
+        "/absolute/path/to/agenthelm-live/extensions/mcp-tunnel/start.js",
         "--port",
         "9000",
         "--host",
         "127.0.0.1"
       ],
       "env": {
-        "AGENTGUARD_MCP_SECRET": "agentguard_master_secret_key_32b"
+        "AGENTHELM_MCP_SECRET": "agenthelm_master_secret_key_32b"
       }
     }
   }
@@ -210,21 +209,21 @@ Add the following under `"mcpServers"`:
 
 Once configured, test the tools by prompting your AI assistant:
 
-| Action | Example Prompt to AI | What AgentGuard Does |
+| Action | Example Prompt to AI | What AgentHelm Does |
 |---|---|---|
-| **Read file in sandbox** | *"Use AgentGuard to read `src/auth/jwt.ts`."* | Reads the file safely from `sandbox-042` with path-traversal prevention. |
-| **List sandbox tree** | *"List the workspace files using AgentGuard."* | Returns the directory structure of the isolated worktree. |
+| **Read file in sandbox** | *"Use AgentHelm to read `src/auth/jwt.ts`."* | Reads the file safely from `sandbox-042` with path-traversal prevention. |
+| **List sandbox tree** | *"List the workspace files using AgentHelm."* | Returns the directory structure of the isolated worktree. |
 | **Inspect ledger** | *"Inspect the security ledger state."* | Returns active rules (`14 RULES ARMED`), mode, and session ID. |
 
 ---
 
 ## 📚 Built-in Documentation Scraper (Ketch)
 
-AI agents frequently need fresh documentation. AgentGuard includes a built-in headless scraper ported from `1broseidon/ketch`:
+AI agents frequently need fresh documentation. AgentHelm includes a built-in headless scraper ported from `1broseidon/ketch`:
 
 ```bash
 # Fetch any documentation URL and output clean Markdown
-agentguard-bar fetch-docs https://docs.rs/tokio/latest/tokio/
+agenthelm-bar fetch-docs https://docs.rs/tokio/latest/tokio/
 ```
 The scraper automatically converts HTML to Markdown, strips scripts and ads, enforces a 2MB memory cap, and broadcasts a `CONTEXT_FETCHED` event to the dashboard.
 
@@ -241,7 +240,7 @@ The scraper automatically converts HTML to Markdown, strips scripts and ads, enf
                  CLI Interception / MCP Protocol
                                  ▼
   ┌─────────────────────────────────────────────────────────────┐
-  │         AgentGuard Blade Agent Runtime (BAR) Daemon         │
+  │         AgentHelm Blade Agent Runtime (BAR) Daemon         │
   │                     (Go 1.22 Daemon)                        │
   ├─────────────────────────────────────────────────────────────┤
   │  • Regex Security Policy Engine (Blocks dangerous commands) │
@@ -251,7 +250,7 @@ The scraper automatically converts HTML to Markdown, strips scripts and ads, enf
   └──────────────────────────────┬──────────────────────────────┘
                                  │
                    Unix Domain Socket (JSONL)
-                   /tmp/agentguard.sock
+                   /tmp/agenthelm.sock
                                  ▼
   ┌─────────────────────────────────────────────────────────────┐
   │            Telemetry & Dispatch Nervous System              │
@@ -265,7 +264,7 @@ The scraper automatically converts HTML to Markdown, strips scripts and ads, enf
        WebSocket (Port 8765)         MCP Loopback (Port 9000)
                   ▼                             ▼
   ┌──────────────────────────────┐┌─────────────────────────────┐
-  │    AgentGuard Cockpit UI     ││     Exeora MCP Tunnel       │
+  │    AgentHelm Cockpit UI     ││     Exeora MCP Tunnel       │
   │ (Tauri v2 + React 18 + Vite) ││   (Node.js 20 + JSON-RPC)   │
   ├──────────────────────────────┤├─────────────────────────────┤
   │ • Mission-Control Brutalist  ││ • Encrypted Local Loopback  │
@@ -292,4 +291,4 @@ The scraper automatically converts HTML to Markdown, strips scripts and ads, enf
 ---
 
 ## 📄 License
-MIT © 2026 AgentGuard Contributors.
+MIT © 2026 AgentHelm Contributors.

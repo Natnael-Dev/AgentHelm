@@ -1,4 +1,4 @@
-// Ketch CLI — Standalone documentation scraper for AgentGuard
+// Ketch CLI — Standalone documentation scraper for AgentHelm
 // Usage: ketch <url>
 // Fetches the URL and outputs clean Markdown to stdout.
 package main
@@ -8,12 +8,12 @@ import (
 	"fmt"
 	"os"
 
-	scraper "github.com/agentguard/agentguard-live/extensions/docs-scraper"
+	scraper "github.com/agenthelm/agenthelm-live/extensions/docs-scraper"
 )
 
 func main() {
 	if len(os.Args) < 2 {
-		fmt.Fprintln(os.Stderr, "Ketch Docs Scraper — AgentGuard Extension")
+		fmt.Fprintln(os.Stderr, "Ketch Docs Scraper — AgentHelm Extension")
 		fmt.Fprintln(os.Stderr, "Usage: ketch <url>")
 		fmt.Fprintln(os.Stderr, "       ketch --json <url>")
 		os.Exit(1)

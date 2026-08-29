@@ -32,7 +32,7 @@ pub struct AppState {
 async fn health_check() -> Json<serde_json::Value> {
     Json(json!({
         "status": "healthy",
-        "service": "agentguard-telemetry",
+        "service": "agenthelm-telemetry",
         "version": env!("CARGO_PKG_VERSION"),
         "timestamp": chrono::Utc::now().to_rfc3339()
     }))
@@ -51,7 +51,7 @@ async fn main() -> anyhow::Result<()> {
     tracing::subscriber::set_global_default(subscriber)
         .expect("setting default subscriber failed");
 
-    info!("Starting AgentGuard Live Telemetry Server v{}...", env!("CARGO_PKG_VERSION"));
+    info!("Starting AgentHelm Live Telemetry Server v{}...", env!("CARGO_PKG_VERSION"));
 
     let (tx, _rx) = broadcast::channel::<WireEvent>(BROADCAST_CAPACITY);
     let analytics = AnalyticsTracker::new();

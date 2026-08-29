@@ -1,4 +1,4 @@
-# AgentGuard Telemetry & Dispatch Engine (`telemetry/`)
+# AgentHelm Telemetry & Dispatch Engine (`telemetry/`)
 
 High-performance Rust telemetry hub built with **Axum**, **Tokio**, and **broadcast channels**.
 
@@ -6,7 +6,7 @@ High-performance Rust telemetry hub built with **Axum**, **Tokio**, and **broadc
 
 ```
 [ Go BAR Daemon ] 
-       │ (Unix Domain Socket /tmp/agentguard.sock)
+       │ (Unix Domain Socket /tmp/agenthelm.sock)
        ▼
 [ UdsListener ] ──> [ tokio::sync::broadcast ] ──> [ Axum WebSocket Handler (/ws/events) ]
        │                                                              │

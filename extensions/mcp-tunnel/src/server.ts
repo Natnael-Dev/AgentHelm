@@ -50,7 +50,7 @@ export class McpSandboxServer {
               resources: {},
             },
             serverInfo: {
-              name: 'agentguard-exeora-tunnel',
+              name: 'agenthelm-exeora-tunnel',
               version: '1.0.0',
             },
           },
@@ -121,7 +121,7 @@ export class McpSandboxServer {
       },
       {
         name: 'inspect_ledger',
-        description: 'Read the append-only AgentGuard security ledger steps',
+        description: 'Read the append-only AgentHelm security ledger steps',
         inputSchema: {
           type: 'object',
           properties: {
@@ -135,13 +135,13 @@ export class McpSandboxServer {
   private getResourceDefinitions(): McpResourceDefinition[] {
     return [
       {
-        uri: 'agentguard://ledger/active',
+        uri: 'agenthelm://ledger/active',
         name: 'Active Security Ledger',
         mimeType: 'application/json',
         description: 'Real-time append-only security ledger of proposed and executed steps',
       },
       {
-        uri: 'agentguard://diff/active',
+        uri: 'agenthelm://diff/active',
         name: 'Active Step Diff',
         mimeType: 'text/x-diff',
         description: 'Unified git diff patch of the current proposed execution step',
@@ -172,7 +172,7 @@ export class McpSandboxServer {
           id: req.id,
           result: {
             isError: true,
-            content: [{ type: 'text', text: 'Access denied: path traversal blocked by AgentGuard sandbox' }],
+            content: [{ type: 'text', text: 'Access denied: path traversal blocked by AgentHelm sandbox' }],
           },
         };
       }

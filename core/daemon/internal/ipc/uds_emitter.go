@@ -8,10 +8,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/agentguard/agentguard-live/core/daemon/internal/core/ledger"
+	"github.com/agenthelm/agenthelm-live/core/daemon/internal/core/ledger"
 )
 
-const DefaultSocketPath = "/tmp/agentguard.sock"
+const DefaultSocketPath = "/tmp/agenthelm.sock"
 
 type UDSEmitter struct {
 	SocketPath string
@@ -27,7 +27,7 @@ func NewUDSEmitter(socketPath string) *UDSEmitter {
 	}
 }
 
-// ConvertStepToWire formats a BAR ledger.Step into the exact AgentGuard Master Wire Protocol
+// ConvertStepToWire formats a BAR ledger.Step into the exact AgentHelm Master Wire Protocol
 func (e *UDSEmitter) ConvertStepToWire(eventType string, step *ledger.Step) *WireEvent {
 	cmdStr := ""
 	if len(step.Cmd) > 0 {
